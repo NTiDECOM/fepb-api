@@ -25,6 +25,7 @@
     "testFrameworks": [],
     "jhiPrefix": "jhi",
     "clientPackageManager": "yarn",
-    "skipClient": true
+    "skipClient": true,
+    "herokuDeployType": "git"
   }
 }

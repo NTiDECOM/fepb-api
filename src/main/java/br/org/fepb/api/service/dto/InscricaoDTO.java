@@ -18,6 +18,8 @@ public class InscricaoDTO {
 
     private PessoaDTO pessoa;
 
+    private OficinaDTO oficina;
+
     public InscricaoDTO() { }
 
     public InscricaoDTO(Inscricao i) {
@@ -28,6 +30,7 @@ public class InscricaoDTO {
         this.nomeCoordenador = i.getNomeCoordenador();
         this.emailCoordenador = i.getEmailCoordenador();
         this.pessoa = new PessoaDTO(i.getPessoa());
+        this.oficina = new OficinaDTO(i.getOficina());
 
     }
 
@@ -85,5 +88,13 @@ public class InscricaoDTO {
 
     public void setPessoa(PessoaDTO pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public OficinaDTO getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(OficinaDTO oficina) {
+        this.oficina = oficina;
     }
 }

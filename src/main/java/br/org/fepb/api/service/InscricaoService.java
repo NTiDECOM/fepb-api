@@ -1,11 +1,13 @@
 package br.org.fepb.api.service;
 
 import br.org.fepb.api.domain.Inscricao;
+import br.org.fepb.api.domain.Oficina;
 import br.org.fepb.api.domain.Pessoa;
 import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
 import br.org.fepb.api.enumeration.SexoEnum;
 import br.org.fepb.api.enumeration.TipoSanguineoEnum;
 import br.org.fepb.api.repository.InscricaoRepository;
+import br.org.fepb.api.repository.OficinaRepository;
 import br.org.fepb.api.service.dto.InscricaoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +28,12 @@ public class InscricaoService {
 
     private InscricaoRepository inscricaoRepository;
 
-    public InscricaoService(InscricaoRepository inscricaoRepository) {
+    private OficinaRepository oficinaRepository;
+
+    public InscricaoService(InscricaoRepository inscricaoRepository,
+                            OficinaRepository oficinaRepository) {
         this.inscricaoRepository = inscricaoRepository;
+        this.oficinaRepository = oficinaRepository;
     }
 
     public List<Inscricao> listarInscricoes() {
@@ -90,6 +96,9 @@ public class InscricaoService {
         newInscricao.setTrabalhador(new Boolean(i.isTrabalhador()));
 
         newInscricao.setPessoa(newPessoa);
+
+        Oficina o = oficinaRepository.getOne(i.getOficina().getId());
+        newInscricao.setOficina(o);
 
         return inscricaoRepository.save(newInscricao);
 

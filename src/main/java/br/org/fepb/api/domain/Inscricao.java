@@ -32,6 +32,10 @@ public class Inscricao implements Serializable {
     @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
 
+    @ManyToOne
+    @JoinColumn(name = "id_oficina")
+    private Oficina oficina;
+
     public Boolean getTrabalhador() {
         return trabalhador;
     }
@@ -86,5 +90,13 @@ public class Inscricao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Oficina getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(Oficina oficina) {
+        this.oficina = oficina;
     }
 }

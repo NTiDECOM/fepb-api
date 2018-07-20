@@ -97,9 +97,10 @@ public class InscricaoService {
 
         newInscricao.setPessoa(newPessoa);
 
-        Oficina o = oficinaRepository.getOne(i.getOficina().getId());
-        newInscricao.setOficina(o);
-
+        if (i.getOficina() != null && i.getOficina().getId() != null) {
+            Oficina o = oficinaRepository.getOne(i.getOficina().getId());
+            newInscricao.setOficina(o);
+        }
         return inscricaoRepository.save(newInscricao);
 
     }

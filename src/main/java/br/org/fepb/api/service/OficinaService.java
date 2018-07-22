@@ -41,7 +41,7 @@ public class OficinaService {
         List<Oficina> oficinas = oficinaRepository.findAll();
         for(Oficina o : oficinas) {
             OficinaDTO dto = new OficinaDTO(o);
-            Integer numInscricoes = inscricaoRepository.countAllByOficina(o);
+            Integer numInscricoes = inscricaoRepository.countAllByOficinaAndTrabalhadorFalse(o);
             dto.setNumInscricoes(numInscricoes);
 
             oficinaDTOList.add(dto);

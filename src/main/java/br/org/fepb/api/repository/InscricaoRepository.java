@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InscricaoRepository extends JpaRepository<Inscricao, Long> {
-    Integer countAllByOficina(Oficina oficina);
+    Integer countAllByOficinaAndTrabalhadorFalse(Oficina oficina);
 }

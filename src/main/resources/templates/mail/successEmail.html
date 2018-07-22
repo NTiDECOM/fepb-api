@@ -3,19 +3,37 @@
 <head>
     <title th:text="#{email.success.title}">Inscrição AJE 2018</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/materia/bootstrap.min.css">
 </head>
 <body>
-<p>
-    Sua inscrição foi realizada com sucesso!
-</p>
-<p>
-    O pagamento deve ser realizado em até 2x por depósito em conta, sendo as parcelas no valor
-    de R$ 70,00 e com vencimento 06/08/2018 e 06/09/2018.
-</p>
-<p>
-    <span>Atenciosamente, </span>
-    <br/>
-    <em>AJE 2018.</em>
-</p>
+<div class="container" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <h2>Sua inscrição foi realizada com sucesso!</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <p>
+                Olá <span th:text="${pessoa.comoChamar}"></span>. O pagamento deve ser realizado em até 2x por depósito em conta, sendo as parcelas no valor
+                de R$ 70,00 e com vencimento 06/08/2018 e 06/09/2018.
+            </p>
+            <p>
+
+                <strong>CNPJ:</strong> 09141425000195<br /><br />
+                <img src="https://jurosbaixos.com.br/conteudo/wp-content/uploads/sites/2/2017/06/null-13.jpeg" style="max-width: 6em;" /><br /><br />
+                <strong>Banco do Brasil</strong><br />
+                Agência: 3502-5<br />
+                Conta Corrente: 100.100-0
+            </p>
+        </div>
+    </div>
+
+    <p>
+        <span>Atenciosamente, </span>
+        <br/>
+        <em>AJE 2018.</em>
+    </p>
+</div>
 </body>
 </html>

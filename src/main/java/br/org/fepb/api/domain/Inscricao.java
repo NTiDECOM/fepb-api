@@ -36,6 +36,9 @@ public class Inscricao implements Serializable {
     @JoinColumn(name = "id_oficina")
     private Oficina oficina;
 
+    @Column(name = "pago")
+    private Boolean pago;
+
     public Boolean getTrabalhador() {
         return trabalhador;
     }
@@ -98,5 +101,13 @@ public class Inscricao implements Serializable {
 
     public void setOficina(Oficina oficina) {
         this.oficina = oficina;
+    }
+
+    public Boolean getPago() {
+        return pago;
+    }
+
+    public void setPago(Boolean pago) {
+        this.pago = pago;
     }
 }

@@ -20,10 +20,13 @@ public class InscricaoDTO {
 
     private OficinaDTO oficina;
 
+    private boolean pago;
+
     public InscricaoDTO() { }
 
     public InscricaoDTO(Inscricao i) {
 
+        this.id = i.getId();
         this.trabalhador = i.getTrabalhador().booleanValue();
         this.telefone = i.getTelefone();
         this.instituicao = i.getInstituicao();
@@ -31,6 +34,7 @@ public class InscricaoDTO {
         this.emailCoordenador = i.getEmailCoordenador();
         this.pessoa = new PessoaDTO(i.getPessoa());
         this.oficina = new OficinaDTO(i.getOficina());
+        this.pago = i.getPago().booleanValue();
 
     }
 
@@ -96,5 +100,13 @@ public class InscricaoDTO {
 
     public void setOficina(OficinaDTO oficina) {
         this.oficina = oficina;
+    }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
     }
 }

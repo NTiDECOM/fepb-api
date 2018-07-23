@@ -34,28 +34,28 @@ public class PessoaDTO {
         this.comoChamar = p.getComoChamar();
 
         this.sexo = p.getSexo().toString();
-        if (TipoSanguineoEnum.A_POSITIVO.toString()
+        if (TipoSanguineoEnum.A_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.A_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.A_NEGATIVO.toString()
+        } else if (TipoSanguineoEnum.A_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.A_NEGATIVO.toString();
-        } else if (TipoSanguineoEnum.B_POSITIVO.toString()
+        } else if (TipoSanguineoEnum.B_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.B_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.B_NEGATIVO.toString()
+        } else if (TipoSanguineoEnum.B_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.B_NEGATIVO.toString();
-        } else if (TipoSanguineoEnum.AB_POSITIVO.toString()
+        } else if (TipoSanguineoEnum.AB_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.AB_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.AB_NEGATIVO.toString()
+        } else if (TipoSanguineoEnum.AB_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.AB_NEGATIVO.toString();
-        } else if (TipoSanguineoEnum.O_POSITIVO.toString()
+        } else if (TipoSanguineoEnum.O_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.O_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.O_NEGATIVO.toString()
+        } else if (TipoSanguineoEnum.O_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.O_NEGATIVO.toString();
         }
@@ -65,13 +65,13 @@ public class PessoaDTO {
         this.dataNascimento = p.getDataNascimento().toString();
         this.restricaoSaude = p.getRestricaoSaude();
 
-        if (RestricaoAlimentarEnum.COME_CARNE.toString().equals(p.getRestricaoAlimentar())) {
+        if (RestricaoAlimentarEnum.COME_CARNE.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.COME_CARNE.toString();
-        } else if (RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA.toString().equals(p.getRestricaoAlimentar())) {
+        } else if (RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA.toString();
-        } else if (RestricaoAlimentarEnum.VEGETARIANO.toString().equals(p.getRestricaoAlimentar())) {
+        } else if (RestricaoAlimentarEnum.VEGETARIANO.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.VEGETARIANO.toString();
-        } else if (RestricaoAlimentarEnum.VEGANO.toString().equals(p.getRestricaoAlimentar())) {
+        } else if (RestricaoAlimentarEnum.VEGANO.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.VEGANO.toString();
         }
 

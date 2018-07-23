@@ -41,15 +41,24 @@ public class AjeResource {
 
     @GetMapping("/inscricoes")
     public List<Inscricao> listaInscricoes() {
-
         return inscricaoRepository.findAll();
+    }
 
+    @GetMapping("/inscricoes/{id}")
+    public InscricaoDTO getInscricao(@PathVariable Long id) {
+        return this.inscricaoService.getInscricao(id);
     }
 
     @PostMapping("/inscricoes")
     public Inscricao salvaInscricao(@RequestBody InscricaoDTO inscricao) throws ParseException {
         Inscricao i = inscricaoService.salvarInscricao(inscricao);
         mailService.sendSuccessMail(i.getPessoa());
+        return i;
+    }
+
+    @PutMapping("/inscricoes/{id}")
+    public Inscricao atualizarInscricao(@RequestBody InscricaoDTO inscricao, @PathVariable Long id) throws ParseException {
+        Inscricao i = inscricaoService.atualizarInscricao(inscricao, id);
         return i;
     }
 

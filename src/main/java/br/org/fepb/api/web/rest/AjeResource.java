@@ -13,12 +13,15 @@ import br.org.fepb.api.service.OficinaService;
 import br.org.fepb.api.service.dto.InscricaoDTO;
 import br.org.fepb.api.service.dto.OficinaDTO;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,9 @@ public class AjeResource {
 
     @Autowired
     ServletContext context;
+
+    @Autowired
+    ObjectFactory<HttpSession> httpSessionFactory;
 
     private InscricaoRepository inscricaoRepository;
 
@@ -85,7 +91,7 @@ public class AjeResource {
     }
 
     @GetMapping("/report/inscricoes")
-    public @ResponseBody void reportInscricoes(HttpServletResponse response) throws Exception {
+    public @ResponseBody void reportInscricoes(HttpServletResponse response, HttpServletRequest request) throws Exception {
 
         List<Inscricao> inscricaoList = inscricaoService.listarInscricoes();
         List<InscricaoPojo> inscricaoPojoList = new ArrayList<InscricaoPojo>();
@@ -102,7 +108,7 @@ public class AjeResource {
         }
 
         JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(inscricaoPojoList, false);
-        GenericReport relatorio = new GenericReport("inscricoes", context);
+        GenericReport relatorio = new GenericReport("inscricoes", httpSessionFactory, request);
         ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(inscricaoPojoList   ), response);
 
     }

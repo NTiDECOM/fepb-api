@@ -4,6 +4,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import javax.servlet.ServletContext;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -16,11 +17,10 @@ public class GenericReport {
     private JasperReport relatorio;
     private JasperPrint impressao;
 
-    public GenericReport(String nomeDoRelatorio, ServletContext servletContext) {
-        URL url = this.getClass().getResource(this.getClass().getName().replace(this.getClass().getPackage().getName() + ".", "") + ".class");
-        String caminhoReal = servletContext.getRealPath("/");
+    public GenericReport(String nomeDoRelatorio, ServletContext servletContext) throws MalformedURLException {
 
-        this.reportLogo = caminhoReal + "/images/aje-logo.png";
+        String caminhoReal = servletContext.getRealPath("/");
+        this.reportLogo = caminhoReal + "/reports/images/aje-logo.png";
         this.nomeDoRelatorio = nomeDoRelatorio;
         this.caminhoRelatorioCompilado = caminhoReal + "/reports/jasper/" + nomeDoRelatorio + ".jasper";
         this.parametros = new HashMap<String, Object>();

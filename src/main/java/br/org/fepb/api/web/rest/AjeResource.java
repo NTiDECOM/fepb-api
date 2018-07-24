@@ -30,11 +30,8 @@ import java.util.List;
 @RequestMapping("/api/aje")
 public class AjeResource {
 
-    @Autowired
-    ServletContext context;
 
-    @Autowired
-    ObjectFactory<HttpSession> httpSessionFactory;
+    private ServletContext context;
 
     private InscricaoRepository inscricaoRepository;
 
@@ -47,12 +44,14 @@ public class AjeResource {
     public AjeResource(InscricaoService inscricaoService,
                        InscricaoRepository inscricaoRepository,
                        OficinaService oficinaService,
-                       MailService mailService) {
+                       MailService mailService,
+                       ServletContext context) {
 
         this.inscricaoService = inscricaoService;
         this.oficinaService = oficinaService;
         this.inscricaoRepository = inscricaoRepository;
         this.mailService = mailService;
+        this.context = context;
 
     }
 
@@ -108,7 +107,7 @@ public class AjeResource {
         }
 
         JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(inscricaoPojoList, false);
-        GenericReport relatorio = new GenericReport("inscricoes", httpSessionFactory, request);
+        GenericReport relatorio = new GenericReport("inscricoes", context, request);
         ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(inscricaoPojoList   ), response);
 
     }

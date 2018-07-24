@@ -20,10 +20,8 @@ public class GenericReport {
     private JasperReport relatorio;
     private JasperPrint impressao;
 
-    public GenericReport(String nomeDoRelatorio, ObjectFactory<HttpSession> sessionFactory, HttpServletRequest request) throws MalformedURLException {
+    public GenericReport(String nomeDoRelatorio, ServletContext context, HttpServletRequest request) throws MalformedURLException {
 
-        HttpSession session = sessionFactory.getObject();
-        ServletContext context = session.getServletContext();
         String caminhoReal = context.getRealPath(request.getContextPath());
         this.reportLogo = caminhoReal + "/reports/images/aje-logo.png";
 

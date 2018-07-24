@@ -21,6 +21,7 @@ public class GenericReport {
 
         String caminhoReal = servletContext.getRealPath("/");
         this.reportLogo = caminhoReal + "/reports/images/aje-logo.png";
+        
         this.nomeDoRelatorio = nomeDoRelatorio;
         this.caminhoRelatorioCompilado = caminhoReal + "/reports/jasper/" + nomeDoRelatorio + ".jasper";
         this.parametros = new HashMap<String, Object>();

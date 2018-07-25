@@ -7,6 +7,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;

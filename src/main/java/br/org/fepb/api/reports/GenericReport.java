@@ -2,13 +2,12 @@ package br.org.fepb.api.reports;
 
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import org.springframework.beans.factory.ObjectFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 public class GenericReport {
@@ -20,13 +19,15 @@ public class GenericReport {
     private JasperReport relatorio;
     private JasperPrint impressao;
 
-    public GenericReport(String nomeDoRelatorio, ServletContext context, HttpServletRequest request) throws MalformedURLException {
+    public GenericReport(String nomeDoRelatorio, ServletContext context, HttpServletRequest request) throws IOException {
 
-        String caminhoReal = context.getRealPath(request.getContextPath());
-        this.reportLogo = caminhoReal + "/reports/images/aje-logo.png";
+//        String caminhoReal = this.getClass().getPackage().getName();
+        File fileJasper = new File("src/main/java/br/org/fepb/api/reports/jasper/" + nomeDoRelatorio + ".jasper");
+        File fileLogo = new File("src/main/java/br/org/fepb/api/reports/images/aje-logo.png");
 
+        this.reportLogo = fileLogo.getCanonicalPath();
         this.nomeDoRelatorio = nomeDoRelatorio;
-        this.caminhoRelatorioCompilado = caminhoReal + "/reports/jasper/" + nomeDoRelatorio + ".jasper";
+        this.caminhoRelatorioCompilado = fileJasper.getCanonicalPath();
         this.parametros = new HashMap<String, Object>();
         montarParametrosGenericos();
     }

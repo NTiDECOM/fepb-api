@@ -13,6 +13,7 @@ import br.org.fepb.api.service.OficinaService;
 import br.org.fepb.api.service.dto.InscricaoDTO;
 import br.org.fepb.api.service.dto.OficinaDTO;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.apache.commons.lang.WordUtils;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -96,7 +97,7 @@ public class AjeResource {
         List<InscricaoPojo> inscricaoPojoList = new ArrayList<InscricaoPojo>();
         for (Inscricao i : inscricaoList) {
             InscricaoPojo iPojo = new InscricaoPojo();
-            iPojo.setNome(i.getPessoa().getNome());
+            iPojo.setNome(WordUtils.capitalizeFully(i.getPessoa().getNome()));
             iPojo.setDataNascimento(i.getPessoa().getDataNascimento());
             if (i.getPago().booleanValue() == true) {
                 iPojo.setPagamento("Pago");
@@ -107,7 +108,7 @@ public class AjeResource {
         }
 
         JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(inscricaoPojoList, false);
-        GenericReport relatorio = new GenericReport("inscricoes", context, request);
+        GenericReport relatorio = new GenericReport("inscricoes", "aje-logo.png");
         ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(inscricaoPojoList   ), response);
 
     }

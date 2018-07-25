@@ -19,11 +19,10 @@ public class GenericReport {
     private JasperReport relatorio;
     private JasperPrint impressao;
 
-    public GenericReport(String nomeDoRelatorio, ServletContext context, HttpServletRequest request) throws IOException {
+    public GenericReport(String nomeDoRelatorio, String logoName) throws IOException {
 
-//        String caminhoReal = this.getClass().getPackage().getName();
         File fileJasper = new File("src/main/java/br/org/fepb/api/reports/jasper/" + nomeDoRelatorio + ".jasper");
-        File fileLogo = new File("src/main/java/br/org/fepb/api/reports/images/aje-logo.png");
+        File fileLogo = new File("src/main/java/br/org/fepb/api/reports/images/" + logoName);
 
         this.reportLogo = fileLogo.getCanonicalPath();
         this.nomeDoRelatorio = nomeDoRelatorio;

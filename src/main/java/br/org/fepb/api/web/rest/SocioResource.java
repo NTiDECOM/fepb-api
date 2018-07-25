@@ -13,7 +13,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/socios")
+@RequestMapping("/api/socios")
 public class SocioResource {
 
     @Autowired
@@ -24,27 +24,28 @@ public class SocioResource {
         return this.socioService.listarSocios();
     }
 
+    @GetMapping("/{id}")
+    public Socio buscarPorId(@PathVariable Long id) {
+        return this.socioService.buscarPorId(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Socio salvarSocio(@RequestBody SocioDTO s) throws ParseException {
-
         return this.socioService.salvarSocio(s);
-
     }
 
     @PostMapping("/contribuicao")
     @ResponseStatus(HttpStatus.CREATED)
     public HistoricoContribuicao salvarContribuicao(@RequestBody HistoricoContribuicaoDTO h) throws ParseException {
-
         return this.socioService.salvarContribuicao(h);
-
     }
 
     @GetMapping("/{id}/contribuicao")
     @ResponseStatus(HttpStatus.CREATED)
     public List<HistoricoContribuicao> pegarContribuicao(@PathVariable Long id) {
 
-        Socio s = socioService.bucasPorId(id);
+        Socio s = socioService.buscarPorId(id);
         return this.socioService.buscarContribuicaoPorSocio(s);
 
     }

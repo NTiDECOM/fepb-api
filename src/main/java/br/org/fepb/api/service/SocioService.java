@@ -89,6 +89,7 @@ public class SocioService {
 
         newSocio.setValorContribuicao(s.getValorContribuicao());
         newSocio.setVencimentoContribuicao(s.getVencimentoContribuicao());
+        newSocio.setTelefone(s.getTelefone());
         newSocio.setPessoa(newPessoa);
 
         return this.socioRepository.save(newSocio);
@@ -153,6 +154,7 @@ public class SocioService {
 
         sUpdate.setValorContribuicao(s.getValorContribuicao());
         sUpdate.setVencimentoContribuicao(s.getVencimentoContribuicao());
+        sUpdate.setTelefone(s.getTelefone());
 
         return this.socioRepository.save(sUpdate);
     }
@@ -161,7 +163,7 @@ public class SocioService {
         return this.socioRepository.findAll();
     }
 
-    public Socio bucasPorId(Long id) {
+    public Socio buscarPorId(Long id) {
         Optional<Socio> s = this.socioRepository.findById(id);
         return s.get();
     }

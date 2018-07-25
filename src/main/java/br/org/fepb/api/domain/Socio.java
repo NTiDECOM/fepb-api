@@ -30,6 +30,8 @@ public class Socio implements Serializable {
     @Enumerated
     private MetodoContribuicaoEnum metodoContribuicao;
 
+    @Column(name = "telefone")
+    private String telefone;
 
     @JoinColumn(name = "id_pessoa")
     @OneToOne(cascade = CascadeType.ALL)
@@ -81,5 +83,13 @@ public class Socio implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

@@ -15,6 +15,8 @@ public class SocioDTO {
 
     private String metodoContribuicao;
 
+    private String telefone;
+
     private PessoaDTO pessoa;
 
     public SocioDTO() {}
@@ -25,6 +27,7 @@ public class SocioDTO {
         this.dataAdesao = s.getDataAdesao().toString();
         this.valorContribuicao = s.getValorContribuicao();
         this.vencimentoContribuicao = s.getVencimentoContribuicao();
+        this.telefone = s.getTelefone();
 
         if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO)) {
             this.metodoContribuicao = MetodoContribuicaoEnum.DINHEIRO.toString();
@@ -86,5 +89,13 @@ public class SocioDTO {
 
     public void setPessoa(PessoaDTO pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

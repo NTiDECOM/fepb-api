@@ -70,10 +70,14 @@ public class SocioService {
         }
 
         newPessoa.setEmail(s.getPessoa().getEmail());
-        newPessoa.setDataNascimento(formatter.parse(s.getPessoa().getDataNascimento()));
+
+        if (s.getPessoa().getDataNascimento() != null && !s.getPessoa().getDataNascimento().isEmpty())
+            newPessoa.setDataNascimento(formatter.parse(s.getPessoa().getDataNascimento()));
 
         Socio newSocio = new Socio();
-        newSocio.setDataAdesao(formatter.parse(s.getDataAdesao()));
+
+        if (s.getDataAdesao() != null && !s.getDataAdesao().isEmpty())
+            newSocio.setDataAdesao(formatter.parse(s.getDataAdesao()));
 
         if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);
@@ -154,9 +158,12 @@ public class SocioService {
         }
 
         sUpdate.getPessoa().setEmail(s.getPessoa().getEmail());
-        sUpdate.getPessoa().setDataNascimento(formatter.parse(s.getPessoa().getDataNascimento()));
+        
+        if (s.getPessoa().getDataNascimento() != null && !s.getPessoa().getDataNascimento().isEmpty())
+            sUpdate.getPessoa().setDataNascimento(formatter.parse(s.getPessoa().getDataNascimento()));
 
-        sUpdate.setDataAdesao(formatterUpdate.parse(s.getDataAdesao()));
+        if (s.getDataAdesao() != null && !s.getDataAdesao().isEmpty())
+            sUpdate.setDataAdesao(formatterUpdate.parse(s.getDataAdesao()));
 
         if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);

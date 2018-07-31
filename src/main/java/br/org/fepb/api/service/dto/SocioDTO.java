@@ -1,7 +1,9 @@
 package br.org.fepb.api.service.dto;
 
 import br.org.fepb.api.domain.Socio;
+import br.org.fepb.api.enumeration.CategoriaContribuicaoEnum;
 import br.org.fepb.api.enumeration.MetodoContribuicaoEnum;
+import br.org.fepb.api.enumeration.ModalidadeAssociacaoEnum;
 
 public class SocioDTO {
 
@@ -16,6 +18,10 @@ public class SocioDTO {
     private String metodoContribuicao;
 
     private String telefone;
+
+    private String modalidadeAssociacao;
+
+    private String categoriaAssociacao;
 
     private PessoaDTO pessoa;
 
@@ -33,10 +39,28 @@ public class SocioDTO {
             this.metodoContribuicao = MetodoContribuicaoEnum.DINHEIRO.toString();
         } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO)) {
             this.metodoContribuicao = MetodoContribuicaoEnum.DEPOSITO.toString();
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CHEQUE)) {
-            this.metodoContribuicao = MetodoContribuicaoEnum.CHEQUE.toString();
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO)) {
-            this.metodoContribuicao = MetodoContribuicaoEnum.CARTAO.toString();
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO)) {
+            this.metodoContribuicao = MetodoContribuicaoEnum.CARTAO_DEBITO.toString();
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO)) {
+            this.metodoContribuicao = MetodoContribuicaoEnum.CARTAO_CREDITO.toString();
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA)) {
+            this.metodoContribuicao = MetodoContribuicaoEnum.TRANSFERENCIA.toString();
+        }
+
+        if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO)) {
+            this.modalidadeAssociacao = ModalidadeAssociacaoEnum.EFETIVO.toString();
+        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO)) {
+            this.modalidadeAssociacao = ModalidadeAssociacaoEnum.FEDERATIVO.toString();
+        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE)) {
+            this.modalidadeAssociacao = ModalidadeAssociacaoEnum.CONTRIBUINTE.toString();
+        }
+
+        if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR)) {
+            this.categoriaAssociacao = CategoriaContribuicaoEnum.DOADOR.toString();
+        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO)) {
+            this.categoriaAssociacao = CategoriaContribuicaoEnum.PARCEIRO.toString();
+        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE)) {
+            this.categoriaAssociacao = CategoriaContribuicaoEnum.CONTRIBUINTE.toString();
         }
 
         this.pessoa = new PessoaDTO(s.getPessoa());
@@ -97,5 +121,21 @@ public class SocioDTO {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getModalidadeAssociacao() {
+        return modalidadeAssociacao;
+    }
+
+    public void setModalidadeAssociacao(String modalidadeAssociacao) {
+        this.modalidadeAssociacao = modalidadeAssociacao;
+    }
+
+    public String getCategoriaAssociacao() {
+        return categoriaAssociacao;
+    }
+
+    public void setCategoriaAssociacao(String categoriaAssociacao) {
+        this.categoriaAssociacao = categoriaAssociacao;
     }
 }

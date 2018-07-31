@@ -3,9 +3,7 @@ package br.org.fepb.api.service;
 import br.org.fepb.api.domain.HistoricoContribuicao;
 import br.org.fepb.api.domain.Pessoa;
 import br.org.fepb.api.domain.Socio;
-import br.org.fepb.api.enumeration.MetodoContribuicaoEnum;
-import br.org.fepb.api.enumeration.SexoEnum;
-import br.org.fepb.api.enumeration.TipoSanguineoEnum;
+import br.org.fepb.api.enumeration.*;
 import br.org.fepb.api.repository.HistoricoContribuicaoRepository;
 import br.org.fepb.api.repository.SocioRepository;
 import br.org.fepb.api.service.dto.HistoricoContribuicaoDTO;
@@ -45,28 +43,28 @@ public class SocioService {
             newPessoa.setSexo(SexoEnum.FEMININO);
         }
 
-        if (s.getPessoa().getTipoSanguineo()
+        if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.A_POSITIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.A_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.A_NEGATIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.A_NEGATIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.B_POSITIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.B_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.B_NEGATIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.B_NEGATIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.AB_POSITIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.AB_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.AB_NEGATIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.AB_NEGATIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.O_POSITIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.O_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
             .equals(TipoSanguineoEnum.O_NEGATIVO.toString())) {
             newPessoa.setTipoSanguineo(TipoSanguineoEnum.O_NEGATIVO);
         }
@@ -81,10 +79,28 @@ public class SocioService {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);
         } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.DEPOSITO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CHEQUE.toString())) {
-            newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.CHEQUE);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO.toString())) {
-            newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO);
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO.toString())) {
+            newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_DEBITO);
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO.toString())) {
+            newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_CREDITO);
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA.toString())) {
+            newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.TRANSFERENCIA);
+        }
+
+        if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
+            newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.EFETIVO);
+        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
+            newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.FEDERATIVO);
+        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString())) {
+            newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.CONTRIBUINTE);
+        }
+
+        if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
+            newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.DOADOR);
+        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
+            newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.PARCEIRO);
+        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE.toString())) {
+            newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.CONTRIBUINTE);
         }
 
         newSocio.setValorContribuicao(s.getValorContribuicao());
@@ -146,10 +162,29 @@ public class SocioService {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);
         } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.DEPOSITO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CHEQUE.toString())) {
-            sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.CHEQUE);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO.toString())) {
-            sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO);
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO.toString())) {
+            sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_DEBITO);
+        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO.toString())) {
+            sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_CREDITO);
+        }
+        else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA.toString())) {
+            sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.TRANSFERENCIA);
+        }
+
+        if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
+            sUpdate.setModalidadeAssociacao(ModalidadeAssociacaoEnum.EFETIVO);
+        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
+            sUpdate.setModalidadeAssociacao(ModalidadeAssociacaoEnum.FEDERATIVO);
+        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString())) {
+            sUpdate.setModalidadeAssociacao(ModalidadeAssociacaoEnum.CONTRIBUINTE);
+        }
+
+        if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
+            sUpdate.setCategoriaAssociacao(CategoriaContribuicaoEnum.DOADOR);
+        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
+            sUpdate.setCategoriaAssociacao(CategoriaContribuicaoEnum.PARCEIRO);
+        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE.toString())) {
+            sUpdate.setCategoriaAssociacao(CategoriaContribuicaoEnum.CONTRIBUINTE);
         }
 
         sUpdate.setValorContribuicao(s.getValorContribuicao());

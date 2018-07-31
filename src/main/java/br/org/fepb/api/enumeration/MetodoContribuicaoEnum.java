@@ -3,8 +3,9 @@ package br.org.fepb.api.enumeration;
 public enum MetodoContribuicaoEnum {
 
     DEPOSITO,
+    TRANSFERENCIA,
     DINHEIRO,
-    CARTAO,
-    CHEQUE;
+    CARTAO_DEBITO,
+    CARTAO_CREDITO;
 
 }

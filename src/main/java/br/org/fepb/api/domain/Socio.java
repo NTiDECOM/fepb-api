@@ -1,6 +1,8 @@
 package br.org.fepb.api.domain;
 
+import br.org.fepb.api.enumeration.CategoriaContribuicaoEnum;
 import br.org.fepb.api.enumeration.MetodoContribuicaoEnum;
+import br.org.fepb.api.enumeration.ModalidadeAssociacaoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -32,6 +34,14 @@ public class Socio implements Serializable {
 
     @Column(name = "telefone")
     private String telefone;
+
+    @Enumerated
+    @Column(name = "modalidade_associacao")
+    private ModalidadeAssociacaoEnum modalidadeAssociacao;
+
+    @Enumerated
+    @Column(name = "categoria_associacao")
+    private CategoriaContribuicaoEnum categoriaAssociacao;
 
     @JoinColumn(name = "id_pessoa")
     @OneToOne(cascade = CascadeType.ALL)
@@ -91,5 +101,21 @@ public class Socio implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public ModalidadeAssociacaoEnum getModalidadeAssociacao() {
+        return modalidadeAssociacao;
+    }
+
+    public void setModalidadeAssociacao(ModalidadeAssociacaoEnum modalidadeAssociacao) {
+        this.modalidadeAssociacao = modalidadeAssociacao;
+    }
+
+    public CategoriaContribuicaoEnum getCategoriaAssociacao() {
+        return categoriaAssociacao;
+    }
+
+    public void setCategoriaAssociacao(CategoriaContribuicaoEnum categoriaAssociacao) {
+        this.categoriaAssociacao = categoriaAssociacao;
     }
 }

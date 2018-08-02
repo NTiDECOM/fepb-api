@@ -2,6 +2,7 @@ package br.org.fepb.api.service.dto;
 
 import br.org.fepb.api.domain.Pessoa;
 import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
+import br.org.fepb.api.enumeration.TipoPessoaEnum;
 import br.org.fepb.api.enumeration.TipoSanguineoEnum;
 
 public class PessoaDTO {
@@ -12,11 +13,15 @@ public class PessoaDTO {
 
     private String comoChamar;
 
+    private String tipoPessoa;
+
     private String sexo;
 
     private String tipoSanguineo;
 
     private String cpf;
+
+    private String cnpj;
 
     private String email;
 
@@ -32,6 +37,12 @@ public class PessoaDTO {
         this.id = p.getId();
         this.nome = p.getNome();
         this.comoChamar = p.getComoChamar();
+
+        if (TipoPessoaEnum.FISICA.equals(p.getTipoPessoa())) {
+            this.tipoPessoa = TipoPessoaEnum.FISICA.toString();
+        } else if (TipoPessoaEnum.JURIDICA.equals(p.getTipoPessoa())) {
+            this.tipoPessoa = TipoPessoaEnum.JURIDICA.toString();
+        }
 
         this.sexo = p.getSexo().toString();
         if (TipoSanguineoEnum.A_POSITIVO
@@ -60,7 +71,12 @@ public class PessoaDTO {
             this.tipoSanguineo = TipoSanguineoEnum.O_NEGATIVO.toString();
         }
 
-        this.cpf = p.getCpf();
+        if (TipoPessoaEnum.FISICA.equals(p.getTipoPessoa())) {
+            this.cpf = p.getCpf();
+        } else if (TipoPessoaEnum.JURIDICA.equals(p.getTipoPessoa())) {
+            this.cnpj = p.getCnpj();
+        }
+
         this.email = p.getEmail();
         this.dataNascimento = p.getDataNascimento().toString();
         this.restricaoSaude = p.getRestricaoSaude();
@@ -155,5 +171,21 @@ public class PessoaDTO {
 
     public void setRestricaoAlimentar(String restricaoAlimentar) {
         this.restricaoAlimentar = restricaoAlimentar;
+    }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 }

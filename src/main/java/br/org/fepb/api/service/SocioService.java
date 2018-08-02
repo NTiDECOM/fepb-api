@@ -35,12 +35,23 @@ public class SocioService {
         newPessoa.setComoChamar(s.getPessoa().getComoChamar());
         newPessoa.setEmail(s.getPessoa().getEmail());
         newPessoa.setRestricaoSaude(s.getPessoa().getRestricaoSaude());
-        newPessoa.setCpf(s.getPessoa().getCpf());
 
-        if (s.getPessoa().getSexo().equals(SexoEnum.MASCULINO.toString())) {
-            newPessoa.setSexo(SexoEnum.MASCULINO);
-        } else if (s.getPessoa().getSexo().equals(SexoEnum.FEMININO.toString())) {
-            newPessoa.setSexo(SexoEnum.FEMININO);
+        if (s.getPessoa().getSexo() != null) {
+            if (s.getPessoa().getSexo().equals(SexoEnum.MASCULINO.toString())) {
+                newPessoa.setSexo(SexoEnum.MASCULINO);
+            } else if (s.getPessoa().getSexo().equals(SexoEnum.FEMININO.toString())) {
+                newPessoa.setSexo(SexoEnum.FEMININO);
+            }
+        }
+
+        if (s.getPessoa().getTipoPessoa() != null) {
+            if (s.getPessoa().getTipoPessoa().equals(TipoPessoaEnum.FISICA.toString())) {
+                newPessoa.setTipoPessoa(TipoPessoaEnum.FISICA);
+                newPessoa.setCpf(s.getPessoa().getCpf());
+            } else if (s.getPessoa().getTipoPessoa().equals(TipoPessoaEnum.JURIDICA.toString())) {
+                newPessoa.setTipoPessoa(TipoPessoaEnum.JURIDICA);
+                newPessoa.setCnpj(s.getPessoa().getCnpj());
+            }
         }
 
         if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo()
@@ -123,12 +134,23 @@ public class SocioService {
         sUpdate.getPessoa().setComoChamar(s.getPessoa().getComoChamar());
         sUpdate.getPessoa().setEmail(s.getPessoa().getEmail());
         sUpdate.getPessoa().setRestricaoSaude(s.getPessoa().getRestricaoSaude());
-        sUpdate.getPessoa().setCpf(s.getPessoa().getCpf());
 
-        if (s.getPessoa().getSexo().equals(SexoEnum.MASCULINO.toString())) {
-            sUpdate.getPessoa().setSexo(SexoEnum.MASCULINO);
-        } else if (s.getPessoa().getSexo().equals(SexoEnum.FEMININO.toString())) {
-            sUpdate.getPessoa().setSexo(SexoEnum.FEMININO);
+        if (s.getPessoa().getSexo() != null) {
+            if (s.getPessoa().getSexo().equals(SexoEnum.MASCULINO.toString())) {
+                sUpdate.getPessoa().setSexo(SexoEnum.MASCULINO);
+            } else if (s.getPessoa().getSexo().equals(SexoEnum.FEMININO.toString())) {
+                sUpdate.getPessoa().setSexo(SexoEnum.FEMININO);
+            }
+        }
+
+        if (s.getPessoa().getTipoPessoa() != null) {
+            if (s.getPessoa().getTipoPessoa().equals(TipoPessoaEnum.FISICA.toString())) {
+                sUpdate.getPessoa().setTipoPessoa(TipoPessoaEnum.FISICA);
+                sUpdate.getPessoa().setCpf(s.getPessoa().getCpf());
+            } else if (s.getPessoa().getTipoPessoa().equals(TipoPessoaEnum.JURIDICA.toString())) {
+                sUpdate.getPessoa().setTipoPessoa(TipoPessoaEnum.JURIDICA);
+                sUpdate.getPessoa().setCnpj(s.getPessoa().getCnpj());
+            }
         }
 
         if (s.getPessoa().getTipoSanguineo()
@@ -158,7 +180,7 @@ public class SocioService {
         }
 
         sUpdate.getPessoa().setEmail(s.getPessoa().getEmail());
-        
+
         if (s.getPessoa().getDataNascimento() != null && !s.getPessoa().getDataNascimento().isEmpty())
             sUpdate.getPessoa().setDataNascimento(formatter.parse(s.getPessoa().getDataNascimento()));
 

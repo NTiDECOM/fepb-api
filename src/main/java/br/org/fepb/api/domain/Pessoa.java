@@ -2,6 +2,7 @@ package br.org.fepb.api.domain;
 
 import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
 import br.org.fepb.api.enumeration.SexoEnum;
+import br.org.fepb.api.enumeration.TipoPessoaEnum;
 import br.org.fepb.api.enumeration.TipoSanguineoEnum;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class Pessoa implements Serializable {
     private String comoChamar;
 
     @Enumerated
+    @Column(name = "tipo_pessoa")
+    private TipoPessoaEnum tipoPessoa;
+
+    @Enumerated
     @Column(name = "sexo")
     private SexoEnum sexo;
 
@@ -32,6 +37,9 @@ public class Pessoa implements Serializable {
 
     @Column(name = "cpf")
     private String cpf;
+
+    @Column(name = "cnpj")
+    private String cnpj;
 
     @Column(name = "email")
     private String email;
@@ -124,5 +132,21 @@ public class Pessoa implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public TipoPessoaEnum getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 }

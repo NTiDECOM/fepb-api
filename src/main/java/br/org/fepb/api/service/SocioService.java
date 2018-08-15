@@ -90,7 +90,7 @@ public class SocioService {
         if (s.getDataAdesao() != null && !s.getDataAdesao().isEmpty())
             newSocio.setDataAdesao(formatter.parse(s.getDataAdesao()));
 
-        if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
+        if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);
         } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.DEPOSITO);
@@ -102,7 +102,7 @@ public class SocioService {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.TRANSFERENCIA);
         }
 
-        if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
+        if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
             newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.EFETIVO);
         } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
             newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.FEDERATIVO);
@@ -110,7 +110,7 @@ public class SocioService {
             newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.CONTRIBUINTE);
         }
 
-        if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
+        if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
             newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.DOADOR);
         } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
             newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.PARCEIRO);

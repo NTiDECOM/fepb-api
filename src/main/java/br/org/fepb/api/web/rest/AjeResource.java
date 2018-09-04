@@ -65,7 +65,7 @@ public class AjeResource {
         this.mailService = mailService;
         this.context = context;
         try {
-            this.fileStorageService = new FileStorageService(this.context);
+            this.fileStorageService = new FileStorageService();
         } catch (Exception e) {
             e.printStackTrace();
         }

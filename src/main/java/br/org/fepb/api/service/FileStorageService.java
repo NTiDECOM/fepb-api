@@ -5,6 +5,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,10 +16,10 @@ public class FileStorageService {
 
     private final Path fileStorageLocation;
 
-    public FileStorageService(ServletContext context) throws Exception {
-        this.fileStorageLocation = Paths.get(context.getRealPath(""))
+    public FileStorageService() throws Exception {
+        File file = new File("src/main/webapp/");
+        this.fileStorageLocation = Paths.get(file.getPath())
             .toAbsolutePath().normalize();
-
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
@@ -28,6 +29,7 @@ public class FileStorageService {
 
     public Resource loadFileAsResource(String fileName) throws Exception {
         try {
+
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists()) {

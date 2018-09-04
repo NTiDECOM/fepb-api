@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletContext;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,9 +50,10 @@ public class InscricaoService {
         this.oficinaRepository = oficinaRepository;
     }
 
-    public boolean gerarExcel(ServletContext context) {
+    public boolean gerarExcel() {
 
-        final String FILE_NAME = context.getRealPath("") + "/INSCRICOES_AJE.xlsx";
+        File file = new File("src/main/webapp/");
+        final String FILE_NAME = file.getPath() + "/INSCRICOES_AJE.xlsx";
 
         List<Inscricao> inscricoes = inscricaoRepository.findAll();
 

@@ -9,13 +9,24 @@ import br.org.fepb.api.enumeration.TipoSanguineoEnum;
 import br.org.fepb.api.repository.InscricaoRepository;
 import br.org.fepb.api.repository.OficinaRepository;
 import br.org.fepb.api.service.dto.InscricaoDTO;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.ServletContext;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +47,82 @@ public class InscricaoService {
                             OficinaRepository oficinaRepository) {
         this.inscricaoRepository = inscricaoRepository;
         this.oficinaRepository = oficinaRepository;
+    }
+
+    public boolean gerarExcel(ServletContext context) {
+
+        final String FILE_NAME = context.getRealPath("") + "/INSCRICOES_AJE.xlsx";
+
+        List<Inscricao> inscricoes = inscricaoRepository.findAll();
+
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Inscritos");
+        Object[][] datatypes = new Object[inscricoes.size() + 1][16];
+
+        Object[] header = {
+            "nome", "como_chamar", "tipo_pessoa", "sexo", "tipo_sanguineo", "email", "data_nascimento", "restricao_saude",
+            "restricao_alimentar", "trabalhador", "telefone", "instituicao", "nome_coordenador", "email_coordenador",
+            "oficina", "pago"
+        };
+
+        datatypes[0] = header;
+
+        int idx = 0;
+        for (Inscricao i : inscricoes) {
+            idx++;
+            Object[] obj = {
+                i.getPessoa().getNome(),
+                i.getPessoa().getComoChamar(),
+                i.getPessoa().getTipoPessoa().toString(),
+                i.getPessoa().getSexo().toString(),
+                i.getPessoa().getTipoSanguineo().toString(),
+                i.getPessoa().getEmail(),
+                i.getPessoa().getDataNascimento().toString(),
+                i.getPessoa().getRestricaoSaude(),
+                i.getPessoa().getRestricaoAlimentar(),
+                i.getTrabalhador().toString(),
+                i.getTelefone(),
+                i.getInstituicao(),
+                i.getNomeCoordenador(),
+                i.getEmailCoordenador(),
+                (i.getOficina() != null) ? i.getOficina().getNome() : "",
+                i.getPago().toString()
+            };
+            datatypes[idx] = obj;
+        }
+
+        int rowNum = 0;
+        System.out.println("Creating excel");
+
+        for (Object[] datatype : datatypes) {
+            Row row = sheet.createRow(rowNum++);
+            int colNum = 0;
+            for (Object field : datatype) {
+                Cell cell = row.createCell(colNum++);
+                if (field instanceof String) {
+                    cell.setCellValue((String) field);
+                } else if (field instanceof Integer) {
+                    cell.setCellValue((Integer) field);
+                }
+            }
+        }
+
+        try {
+            if (Files.exists(Paths.get(FILE_NAME))) {
+                Files.delete(Paths.get(FILE_NAME));
+            }
+            FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
+            workbook.write(outputStream);
+            workbook.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Done");
+
+        return true;
     }
 
     public InscricaoDTO getInscricao(Long id) {

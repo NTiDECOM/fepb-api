@@ -7,6 +7,7 @@ import br.org.fepb.api.reports.GenericReport;
 import br.org.fepb.api.reports.ReportGenerator;
 import br.org.fepb.api.repository.InscricaoRepository;
 import br.org.fepb.api.security.AuthoritiesConstants;
+import br.org.fepb.api.service.FileStorageService;
 import br.org.fepb.api.service.InscricaoService;
 import br.org.fepb.api.service.MailService;
 import br.org.fepb.api.service.OficinaService;
@@ -14,8 +15,14 @@ import br.org.fepb.api.service.dto.InscricaoDTO;
 import br.org.fepb.api.service.dto.OficinaDTO;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.lang.WordUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +30,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +39,13 @@ import java.util.List;
 @RequestMapping("/api/aje")
 public class AjeResource {
 
+    private static final Logger logger = LoggerFactory.getLogger(AjeResource.class);
 
+    @Autowired
     private ServletContext context;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     private InscricaoRepository inscricaoRepository;
 
@@ -53,6 +66,32 @@ public class AjeResource {
         this.inscricaoRepository = inscricaoRepository;
         this.mailService = mailService;
         this.context = context;
+
+    }
+
+    @GetMapping("/excel")
+    public ResponseEntity<Resource> gerarExcel(HttpServletRequest request) throws Exception {
+        inscricaoService.gerarExcel(context);
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource("INSCRICOES_AJE.xlsx");
+
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            logger.info("Could not determine file type.");
+        }
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(contentType))
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+            .body(resource);
 
     }
 

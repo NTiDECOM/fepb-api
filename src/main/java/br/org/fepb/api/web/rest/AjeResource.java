@@ -41,7 +41,6 @@ public class AjeResource {
 
     private static final Logger logger = LoggerFactory.getLogger(AjeResource.class);
 
-    @Autowired
     private ServletContext context;
 
     private FileStorageService fileStorageService;

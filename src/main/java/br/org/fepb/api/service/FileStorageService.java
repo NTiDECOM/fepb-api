@@ -1,6 +1,5 @@
 package br.org.fepb.api.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ public class FileStorageService {
 
     private final Path fileStorageLocation;
 
-    @Autowired
     public FileStorageService(ServletContext context) throws Exception {
         this.fileStorageLocation = Paths.get(context.getRealPath(""))
             .toAbsolutePath().normalize();

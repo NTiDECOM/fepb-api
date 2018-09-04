@@ -44,7 +44,6 @@ public class AjeResource {
     @Autowired
     private ServletContext context;
 
-    @Autowired
     private FileStorageService fileStorageService;
 
     private InscricaoRepository inscricaoRepository;
@@ -66,6 +65,11 @@ public class AjeResource {
         this.inscricaoRepository = inscricaoRepository;
         this.mailService = mailService;
         this.context = context;
+        try {
+            this.fileStorageService = new FileStorageService(this.context);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

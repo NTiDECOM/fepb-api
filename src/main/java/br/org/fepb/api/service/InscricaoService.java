@@ -73,20 +73,20 @@ public class InscricaoService {
             Object[] obj = {
                 i.getPessoa().getNome(),
                 i.getPessoa().getComoChamar(),
-                i.getPessoa().getTipoPessoa().toString(),
-                i.getPessoa().getSexo().toString(),
-                i.getPessoa().getTipoSanguineo().toString(),
+                (i.getPessoa().getTipoPessoa() != null) ? i.getPessoa().getTipoPessoa().toString() : "",
+                (i.getPessoa().getSexo() != null) ? i.getPessoa().getSexo().toString() : "",
+                (i.getPessoa().getTipoSanguineo() != null) ? i.getPessoa().getTipoSanguineo().toString() : "",
                 i.getPessoa().getEmail(),
-                i.getPessoa().getDataNascimento().toString(),
+                (i.getPessoa().getDataNascimento() != null) ? i.getPessoa().getDataNascimento().toString() : "",
                 i.getPessoa().getRestricaoSaude(),
                 i.getPessoa().getRestricaoAlimentar(),
-                i.getTrabalhador().toString(),
+                (i.getTrabalhador().toString() != null) ? i.getTrabalhador().toString() : "",
                 i.getTelefone(),
                 i.getInstituicao(),
                 i.getNomeCoordenador(),
                 i.getEmailCoordenador(),
                 (i.getOficina() != null) ? i.getOficina().getNome() : "",
-                i.getPago().toString()
+                (i.getPago() != null) ? i.getPago().toString(): ""
             };
             datatypes[idx] = obj;
         }

@@ -63,12 +63,12 @@ public class InscricaoService {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Inscritos");
-        Object[][] datatypes = new Object[inscricoes.size() + 1][16];
+        Object[][] datatypes = new Object[inscricoes.size() + 1][17];
 
         Object[] header = {
-            "nome", "como_chamar", "tipo_pessoa", "sexo", "tipo_sanguineo", "email", "data_nascimento", "restricao_saude",
-            "restricao_alimentar", "trabalhador", "telefone", "instituicao", "nome_coordenador", "email_coordenador",
-            "oficina", "pago"
+            "id", "nome", "como_chamar", "tipo_pessoa", "sexo", "tipo_sanguineo", "email", "data_nascimento",
+            "restricao_saude", "restricao_alimentar", "trabalhador", "telefone", "instituicao", "nome_coordenador",
+            "email_coordenador", "oficina", "pago"
         };
 
         datatypes[0] = header;
@@ -77,6 +77,7 @@ public class InscricaoService {
         for (Inscricao i : inscricoes) {
             idx++;
             Object[] obj = {
+                i.getId().toString(),
                 i.getPessoa().getNome(),
                 i.getPessoa().getComoChamar(),
                 (i.getPessoa().getTipoPessoa() != null) ? i.getPessoa().getTipoPessoa().toString() : "",

@@ -86,7 +86,7 @@ public class AjeResource {
             logger.info("Could not determine file type.");
         }
 
-        
+
         if(contentType == null) {
             contentType = "application/octet-stream";
         }
@@ -151,6 +151,31 @@ public class AjeResource {
 
         JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(inscricaoPojoList, false);
         GenericReport relatorio = new GenericReport("inscricoes", "aje-logo.png");
+        ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(inscricaoPojoList   ), response);
+
+    }
+
+    @GetMapping("/report/oficinas/{id}")
+    public @ResponseBody void reportOficinas(HttpServletResponse response, @PathVariable Long id) throws Exception {
+
+        Oficina o = this.oficinaService.buscarOficina(id);
+        List<Inscricao> inscricaoList = inscricaoService.listarPorOficina(o);
+        List<InscricaoPojo> inscricaoPojoList = new ArrayList<InscricaoPojo>();
+        for (Inscricao i : inscricaoList) {
+            InscricaoPojo iPojo = new InscricaoPojo();
+            iPojo.setNome(WordUtils.capitalizeFully(i.getPessoa().getNome()));
+            iPojo.setDataNascimento(i.getPessoa().getDataNascimento());
+            if (i.getPago().booleanValue() == true) {
+                iPojo.setPagamento("Pago");
+            } else {
+                iPojo.setPagamento("Pendente");
+            }
+            inscricaoPojoList.add(iPojo);
+        }
+
+        JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(inscricaoPojoList, false);
+        GenericReport relatorio = new GenericReport("oficina", "aje-logo.png");
+        relatorio.adicionarParametro("OFICINA", o.getNome());
         ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(inscricaoPojoList   ), response);
 
     }

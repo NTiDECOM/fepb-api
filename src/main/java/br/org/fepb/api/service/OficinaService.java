@@ -28,6 +28,10 @@ public class OficinaService {
         this.inscricaoRepository = inscricaoRepository;
     }
 
+    public Oficina buscarOficina(Long id) {
+        return this.oficinaRepository.getOne(id);
+    }
+
     public Oficina salvarOficina(OficinaDTO o) {
         Oficina newOficina = new Oficina();
         newOficina.setNome(o.getNome());

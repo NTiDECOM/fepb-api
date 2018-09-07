@@ -35,6 +35,10 @@ public class GenericReport {
         parametros.put("REPORT_LOGO", this.reportLogo);
     }
 
+    public final void adicionarParametro(String parametro, String valor) {
+        parametros.put(parametro, valor);
+    }
+
     public String getCaminhoRelatorioCompilado() {
         return caminhoRelatorioCompilado;
     }

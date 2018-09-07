@@ -50,6 +50,10 @@ public class InscricaoService {
         this.oficinaRepository = oficinaRepository;
     }
 
+    public List<Inscricao> listarPorOficina(Oficina oficina) {
+        return this.inscricaoRepository.findAllByOficina(oficina);
+    }
+
     public boolean gerarExcel() {
 
         File file = new File("src/main/webapp/");

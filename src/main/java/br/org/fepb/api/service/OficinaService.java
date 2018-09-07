@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,7 +30,11 @@ public class OficinaService {
     }
 
     public Oficina buscarOficina(Long id) {
-        return this.oficinaRepository.getOne(id);
+        Optional<Oficina> op = this.oficinaRepository.findById(id);
+        if (op.isPresent()) {
+            return op.get();
+        }
+        return null;
     }
 
     public Oficina salvarOficina(OficinaDTO o) {

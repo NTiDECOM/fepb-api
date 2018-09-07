@@ -51,7 +51,7 @@ public class InscricaoService {
     }
 
     public List<Inscricao> listarPorOficina(Oficina oficina) {
-        return this.inscricaoRepository.findAllByOficina(oficina);
+        return this.inscricaoRepository.findAllByOficinaOrderByPessoaNome(oficina);
     }
 
     public boolean gerarExcel() {
@@ -138,7 +138,7 @@ public class InscricaoService {
     }
 
     public List<Inscricao> listarInscricoes() {
-        return inscricaoRepository.findAll();
+        return inscricaoRepository.findAllByOrderByPessoaNome();
     }
 
     public Inscricao salvarInscricao(InscricaoDTO i) throws ParseException {

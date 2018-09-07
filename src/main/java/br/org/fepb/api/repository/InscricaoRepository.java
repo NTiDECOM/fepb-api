@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface InscricaoRepository extends JpaRepository<Inscricao, Long> {
     Integer countAllByOficinaAndTrabalhadorFalse(Oficina oficina);
-    List<Inscricao> findAllByOficina(Oficina oficina);
+    List<Inscricao> findAllByOficinaOrderByPessoaNome(Oficina oficina);
+    List<Inscricao> findAllByOrderByPessoaNome();
 }

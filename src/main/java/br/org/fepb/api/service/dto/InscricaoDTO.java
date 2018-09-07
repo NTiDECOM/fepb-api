@@ -33,7 +33,11 @@ public class InscricaoDTO {
         this.nomeCoordenador = i.getNomeCoordenador();
         this.emailCoordenador = i.getEmailCoordenador();
         this.pessoa = new PessoaDTO(i.getPessoa());
-        this.oficina = new OficinaDTO(i.getOficina());
+        if (i.getOficina() != null) {
+            this.oficina = new OficinaDTO(i.getOficina());
+        } else {
+            this.oficina = null;
+        }
         this.pago = i.getPago().booleanValue();
 
     }

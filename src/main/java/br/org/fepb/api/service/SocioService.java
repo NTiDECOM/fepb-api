@@ -92,29 +92,29 @@ public class SocioService {
 
         if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.DEPOSITO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_DEBITO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_CREDITO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA.toString())) {
             newSocio.setMetodoContribuicao(MetodoContribuicaoEnum.TRANSFERENCIA);
         }
 
         if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
             newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.EFETIVO);
-        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
+        } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
             newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.FEDERATIVO);
-        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString())) {
+        } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString())) {
             newSocio.setModalidadeAssociacao(ModalidadeAssociacaoEnum.CONTRIBUINTE);
         }
 
         if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
             newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.DOADOR);
-        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
+        } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
             newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.PARCEIRO);
-        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE.toString())) {
+        } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE.toString())) {
             newSocio.setCategoriaAssociacao(CategoriaContribuicaoEnum.CONTRIBUINTE);
         }
 

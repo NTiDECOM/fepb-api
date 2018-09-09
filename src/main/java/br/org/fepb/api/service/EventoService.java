@@ -9,15 +9,17 @@ import br.org.fepb.api.repository.EventoRepository;
 import br.org.fepb.api.repository.LocalRepository;
 import br.org.fepb.api.service.dto.DepartamentoDTO;
 import br.org.fepb.api.service.dto.EventoDTO;
+import org.apache.poi.ss.formula.functions.Even;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
+@Transactional
 public class EventoService {
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -32,6 +34,15 @@ public class EventoService {
     @Autowired
     private DepartamentoRepository departamentoRepository;
 
+    public EventoDTO buscarPorId(Long id) {
+        Optional<Evento> op = this.eventoRepository.findById(id);
+        if (op.isPresent()) {
+            Evento e = op.get();
+            return new EventoDTO(e);
+        }
+        return null;
+    }
+
     public List<Evento> listarEventos() {
         return this.eventoRepository.findAll();
     }
@@ -39,17 +50,11 @@ public class EventoService {
     public Evento salvarEvento(EventoDTO e) throws ParseException {
 
         Local l = null;
-        List<Departamento> departamentos = new ArrayList<Departamento>();
 
         if (e.getLocal() != null && e.getLocal().getId() != null) {
-            l = this.localRepository.getOne(e.getLocal().getId());
-        }
-
-        if (e.getDepartamentos() != null) {
-            for (DepartamentoDTO dto : e.getDepartamentos()) {
-                Departamento d = this.departamentoRepository.getOne(dto.getId());
-                if (d != null)
-                    departamentos.add(d);
+            Optional<Local> op = this.localRepository.findById(e.getLocal().getId());
+            if (op.isPresent()) {
+                l = op.get();
             }
         }
 
@@ -79,12 +84,23 @@ public class EventoService {
             newEvento.setLocal(l);
         }
 
+        if (e.getDepartamentos() != null) {
+            for (DepartamentoDTO dto : e.getDepartamentos()) {
+                if (dto.getId() != null) {
+                    Optional<Departamento> op = this.departamentoRepository.findById(dto.getId());
+                    if (op.isPresent()) {
+                        Departamento d = op.get();
+                        newEvento.getDepartamentos().add(d);
+                    }
+                }
+            }
+        }
+
         newEvento.setEnderecoInscricao(e.getEnderecoInscricao());
         newEvento.setContato(e.getContato());
         newEvento.setEstimativa(e.getEstimativa());
         newEvento.setObjetivo(e.getObjetivo());
         newEvento.setAlvo(e.getAlvo());
-        newEvento.setDepartamentos(departamentos);
 
         return this.eventoRepository.save(newEvento);
 

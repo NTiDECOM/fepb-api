@@ -1,5 +1,7 @@
 package br.org.fepb.api.domain;
 
+import br.org.fepb.api.enumeration.TipoLocalEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,9 @@ public class Local {
     private Long id;
 
     private String nome;
+
+    @Enumerated
+    private TipoLocalEnum tipoLocal;
 
     public Long getId() {
         return id;
@@ -26,5 +31,13 @@ public class Local {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public TipoLocalEnum getTipoLocal() {
+        return tipoLocal;
+    }
+
+    public void setTipoLocal(TipoLocalEnum tipoLocal) {
+        this.tipoLocal = tipoLocal;
     }
 }

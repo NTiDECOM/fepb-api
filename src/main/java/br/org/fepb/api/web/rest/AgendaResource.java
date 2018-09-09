@@ -6,6 +6,7 @@ import br.org.fepb.api.domain.Local;
 import br.org.fepb.api.service.DepartamentoService;
 import br.org.fepb.api.service.EventoService;
 import br.org.fepb.api.service.LocalService;
+import br.org.fepb.api.service.dto.DepartamentoDTO;
 import br.org.fepb.api.service.dto.EventoDTO;
 import br.org.fepb.api.service.dto.LocalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class AgendaResource {
         return this.eventoService.listarEventos();
     }
 
+    @GetMapping("/eventos/{id}")
+    public EventoDTO buscarEventoPorId(@PathVariable Long id) {
+        return this.eventoService.buscarPorId(id);
+    }
+
     @PostMapping("/eventos")
     public Evento salvarEvento(@RequestBody EventoDTO e) throws ParseException {
         return this.eventoService.salvarEvento(e);
@@ -50,6 +56,11 @@ public class AgendaResource {
     @GetMapping("/departamentos")
     public List<Departamento> listarDepartamentos() {
         return this.departamentoService.listarDepartamentos();
+    }
+
+    @PostMapping("/departamentos")
+    public Departamento salvarDepartamento(@RequestBody DepartamentoDTO d) {
+        return this.departamentoService.salvarDepartamento(d);
     }
 
 }

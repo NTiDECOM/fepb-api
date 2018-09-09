@@ -4,7 +4,9 @@ import br.org.fepb.api.enumeration.TipoEventoEnum;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "eventos")
@@ -44,16 +46,17 @@ public class Evento {
 
     private String alvo;
 
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
+    @ManyToMany(fetch = FetchType.EAGER,
+        cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
     })
     @JoinTable(
         name = "evento_departamento",
-        joinColumns = @JoinColumn(name = "id_evento"),
-        inverseJoinColumns = @JoinColumn(name = "id_departamento")
+        joinColumns = { @JoinColumn(name = "id_evento") },
+        inverseJoinColumns = { @JoinColumn(name = "id_departamento") }
     )
-    private List<Departamento> departamentos;
+    private Set<Departamento> departamentos = new HashSet<Departamento>();
 
     public Long getId() {
         return id;
@@ -167,11 +170,11 @@ public class Evento {
         this.alvo = alvo;
     }
 
-    public List<Departamento> getDepartamentos() {
+    public Set<Departamento> getDepartamentos() {
         return departamentos;
     }
 
-    public void setDepartamentos(List<Departamento> departamentos) {
+    public void setDepartamentos(Set<Departamento> departamentos) {
         this.departamentos = departamentos;
     }
 }

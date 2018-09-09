@@ -54,6 +54,29 @@ public class InscricaoService {
         return this.inscricaoRepository.findAllByOficinaOrderByPessoaNome(oficina);
     }
 
+    public void enviarEmailAutorizacao(MailService mailService, Long idInscricao) {
+        Optional<Inscricao> op = this.inscricaoRepository.findById(idInscricao);
+        if (op.isPresent()) {
+            Inscricao i = op.get();
+            mailService.sendAutorizacaoMail(i.getPessoa());
+            i.setFlagEmailAutorizacao(new Boolean(true));
+            this.inscricaoRepository.save(i);
+        }
+    }
+
+    public void enviarEmailsAutorizacao(MailService mailService) throws ParseException {
+        List<Inscricao> inscricaoList = this.inscricaoRepository
+            .findByTrabalhadorAndFlagEmailAutorizacaoAndPessoaDataNascimentoAfter(
+                                                                    new Boolean(false),
+                                                                    new Boolean(false),
+                                                                    formatter.parse("21/09/2000"));
+        for (Inscricao i : inscricaoList) {
+            mailService.sendAutorizacaoMail(i.getPessoa());
+            i.setFlagEmailAutorizacao(new Boolean(true));
+            this.inscricaoRepository.save(i);
+        }
+    }
+
     public boolean gerarExcel() {
 
         File file = new File("src/main/webapp/");

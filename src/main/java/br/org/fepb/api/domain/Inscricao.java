@@ -39,6 +39,9 @@ public class Inscricao implements Serializable {
     @Column(name = "pago")
     private Boolean pago;
 
+    @Column(name = "flag_email_autoriza")
+    private Boolean flagEmailAutorizacao;
+
     public Boolean getTrabalhador() {
         return trabalhador;
     }
@@ -109,5 +112,13 @@ public class Inscricao implements Serializable {
 
     public void setPago(Boolean pago) {
         this.pago = pago;
+    }
+
+    public Boolean getFlagEmailAutorizacao() {
+        return flagEmailAutorizacao;
+    }
+
+    public void setFlagEmailAutorizacao(Boolean flagEmailAutorizacao) {
+        this.flagEmailAutorizacao = flagEmailAutorizacao;
     }
 }

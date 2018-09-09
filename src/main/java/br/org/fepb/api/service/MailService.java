@@ -5,6 +5,7 @@ import br.org.fepb.api.domain.User;
 
 import io.github.jhipster.config.JHipsterProperties;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import javax.mail.internet.MimeMessage;
@@ -53,7 +54,7 @@ public class MailService {
     }
 
     @Async
-    public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
+    public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml, File attachment) {
         log.debug("Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
             isMultipart, isHtml, to, subject, content);
 
@@ -65,6 +66,9 @@ public class MailService {
             message.setFrom(jHipsterProperties.getMail().getFrom(), "AJE 2018");
             message.setSubject(subject);
             message.setText(content, isHtml);
+            if (attachment != null) {
+                message.addAttachment(attachment.getName(), attachment);
+            }
             javaMailSender.send(mimeMessage);
             log.debug("Sent email to User '{}'", to);
         } catch (Exception e) {
@@ -84,7 +88,7 @@ public class MailService {
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
-        sendEmail(user.getEmail(), subject, content, false, true);
+        sendEmail(user.getEmail(), subject, content, false, true, null);
 
     }
 
@@ -95,7 +99,19 @@ public class MailService {
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
         String subject = "INSCRIÇÃO - AJE 2018";
-        sendEmail(p.getEmail(), subject, content, false, true);
+        sendEmail(p.getEmail(), subject, content, false, true, null);
+    }
+
+    @Async
+    public void sendAutorizacaoEmailFromTemplate(Pessoa p, String templateName, String titleKey) {
+        Context context = new Context();
+        context.setVariable(PESSOA, p);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = "AUTORIZAÇÃO DE MENOR - AJE 2018";
+
+        File attachment = new File("src/main/java/br/org/fepb/api/reports/docs/autorizacao_menor_aje.docx");
+        sendEmail(p.getEmail(), subject, content, true, true, attachment);
     }
 
     @Async
@@ -120,5 +136,11 @@ public class MailService {
     public void sendSuccessMail(Pessoa p) {
         log.debug("Sending success email to '{}'", p.getEmail());
         sendSuccessEmailFromTemplate(p, "mail/successEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendAutorizacaoMail(Pessoa p) {
+        log.debug("Sending autorizacao email to '{}'", p.getEmail());
+        sendAutorizacaoEmailFromTemplate(p, "mail/autorizacao", "email.reset.title");
     }
 }

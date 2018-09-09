@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.success.title}">Autorização de Menores - AJE 2018</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/materia/bootstrap.min.css">
+</head>
+<body>
+<div class="container" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <h2>Autorização de Menores - AJE 2018</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <p>
+                Olá <span th:text="${pessoa.comoChamar}"></span>. Para sua participação no AJE será necessário preencher
+                a declaração em anexo, levar para o AJE e entregar no momento do seu credenciamento.
+            </p>
+            <p>
+                Qualquer dúvida é possível entrar em contato no email <a href="mailto:aje@fepb.org.br">aje@fepb.org.br</a> ou com Mayara Maia no Telefone/WhatsApp <a href="tel:+5583981130019">(83) 98113-0019</a>
+            </p>
+        </div>
+    </div>
+
+    <p>
+        <span>Atenciosamente, </span>
+        <br/>
+        <em>AJE 2018.</em>
+    </p>
+</div>
+</body>
+</html>

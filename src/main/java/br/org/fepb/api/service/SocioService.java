@@ -28,6 +28,10 @@ public class SocioService {
     @Autowired
     private HistoricoContribuicaoRepository historicoContribuicaoRepository;
 
+    public List<Socio> listarTodosOrdenado() {
+        return this.socioRepository.findAllByOrderByPessoaNome();
+    }
+
     public Socio salvarSocio(SocioDTO s) throws ParseException {
 
         Pessoa newPessoa = new Pessoa();

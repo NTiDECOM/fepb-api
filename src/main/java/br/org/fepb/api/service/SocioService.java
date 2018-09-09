@@ -10,6 +10,7 @@ import br.org.fepb.api.service.dto.HistoricoContribuicaoDTO;
 import br.org.fepb.api.service.dto.SocioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class SocioService {
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -157,66 +159,57 @@ public class SocioService {
             }
         }
 
-        if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.A_POSITIVO.toString())) {
+        if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.A_POSITIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.A_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.A_NEGATIVO.toString())) {
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.A_NEGATIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.A_NEGATIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.B_POSITIVO.toString())) {
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.B_POSITIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.B_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.B_NEGATIVO.toString())) {
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.B_NEGATIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.B_NEGATIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.AB_POSITIVO.toString())) {
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.AB_POSITIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.AB_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.AB_NEGATIVO.toString())) {
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.AB_NEGATIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.AB_NEGATIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.O_POSITIVO.toString())) {
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.O_POSITIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.O_POSITIVO);
-        } else if (s.getPessoa().getTipoSanguineo()
-            .equals(TipoSanguineoEnum.O_NEGATIVO.toString())) {
+        } else if (s.getPessoa().getTipoSanguineo() != null && s.getPessoa().getTipoSanguineo().equals(TipoSanguineoEnum.O_NEGATIVO.toString())) {
             sUpdate.getPessoa().setTipoSanguineo(TipoSanguineoEnum.O_NEGATIVO);
         }
 
         sUpdate.getPessoa().setEmail(s.getPessoa().getEmail());
 
         if (s.getPessoa().getDataNascimento() != null && !s.getPessoa().getDataNascimento().isEmpty())
-            sUpdate.getPessoa().setDataNascimento(formatter.parse(s.getPessoa().getDataNascimento()));
+            sUpdate.getPessoa().setDataNascimento(formatterUpdate.parse(s.getPessoa().getDataNascimento()));
 
         if (s.getDataAdesao() != null && !s.getDataAdesao().isEmpty())
             sUpdate.setDataAdesao(formatterUpdate.parse(s.getDataAdesao()));
 
-        if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
+        if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.DEPOSITO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO.toString())) {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_DEBITO);
-        } else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO.toString())) {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_CREDITO);
-        }
-        else if (s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA.toString())) {
+        } else if (s.getMetodoContribuicao() != null && s.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA.toString())) {
             sUpdate.setMetodoContribuicao(MetodoContribuicaoEnum.TRANSFERENCIA);
         }
 
-        if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
+        if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
             sUpdate.setModalidadeAssociacao(ModalidadeAssociacaoEnum.EFETIVO);
-        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
+        } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
             sUpdate.setModalidadeAssociacao(ModalidadeAssociacaoEnum.FEDERATIVO);
-        } else if (s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString())) {
+        } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString())) {
             sUpdate.setModalidadeAssociacao(ModalidadeAssociacaoEnum.CONTRIBUINTE);
         }
 
-        if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
+        if (s.getCategoriaAssociacao() != null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
             sUpdate.setCategoriaAssociacao(CategoriaContribuicaoEnum.DOADOR);
-        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
+        } else if (s.getCategoriaAssociacao() != null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
             sUpdate.setCategoriaAssociacao(CategoriaContribuicaoEnum.PARCEIRO);
-        } else if (s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE.toString())) {
+        } else if (s.getCategoriaAssociacao() != null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE.toString())) {
             sUpdate.setCategoriaAssociacao(CategoriaContribuicaoEnum.CONTRIBUINTE);
         }
 
@@ -231,9 +224,14 @@ public class SocioService {
         return this.socioRepository.findAll();
     }
 
-    public Socio buscarPorId(Long id) {
-        Optional<Socio> s = this.socioRepository.findById(id);
-        return s.get();
+    public SocioDTO buscarPorId(Long id) {
+        Optional<Socio> op = this.socioRepository.findById(id);
+
+        if (op.isPresent()) {
+            SocioDTO dto = new SocioDTO(op.get());
+            return dto;
+        }
+        return null;
     }
 
     public List<HistoricoContribuicao> listarPorSocio(Socio s) {
@@ -253,8 +251,12 @@ public class SocioService {
 
     }
 
-    public List<HistoricoContribuicao> buscarContribuicaoPorSocio(Socio s) {
-        return this.historicoContribuicaoRepository.findBySocio(s);
+    public List<HistoricoContribuicao> buscarContribuicaoPorSocio(SocioDTO dto) {
+        Optional<Socio> op = this.socioRepository.findById(dto.getId());
+        if (op.isPresent()) {
+            return this.historicoContribuicaoRepository.findBySocio(op.get());
+        }
+        return null;
     }
 
 }

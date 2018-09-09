@@ -5,7 +5,11 @@ import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
 import br.org.fepb.api.enumeration.TipoPessoaEnum;
 import br.org.fepb.api.enumeration.TipoSanguineoEnum;
 
+import java.text.SimpleDateFormat;
+
 public class PessoaDTO {
+
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     private Long id;
 
@@ -78,7 +82,7 @@ public class PessoaDTO {
         }
 
         this.email = p.getEmail();
-        this.dataNascimento = p.getDataNascimento().toString();
+        this.dataNascimento = formatter.format(p.getDataNascimento());
         this.restricaoSaude = p.getRestricaoSaude();
 
         if (RestricaoAlimentarEnum.COME_CARNE.equals(p.getRestricaoAlimentar())) {

@@ -34,7 +34,7 @@ public class SocioResource {
     }
 
     @GetMapping("/{id}")
-    public Socio buscarPorId(@PathVariable Long id) {
+    public SocioDTO buscarPorId(@PathVariable Long id) {
         return this.socioService.buscarPorId(id);
     }
 
@@ -54,7 +54,7 @@ public class SocioResource {
     @ResponseStatus(HttpStatus.CREATED)
     public List<HistoricoContribuicao> pegarContribuicao(@PathVariable Long id) {
 
-        Socio s = socioService.buscarPorId(id);
+        SocioDTO s = socioService.buscarPorId(id);
         return this.socioService.buscarContribuicaoPorSocio(s);
 
     }

@@ -5,7 +5,11 @@ import br.org.fepb.api.enumeration.CategoriaContribuicaoEnum;
 import br.org.fepb.api.enumeration.MetodoContribuicaoEnum;
 import br.org.fepb.api.enumeration.ModalidadeAssociacaoEnum;
 
+import java.text.SimpleDateFormat;
+
 public class SocioDTO {
+
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     private Long id;
 
@@ -30,7 +34,7 @@ public class SocioDTO {
     public SocioDTO(Socio s) {
 
         this.id = s.getId();
-        this.dataAdesao = s.getDataAdesao().toString();
+        this.dataAdesao = formatter.format(s.getDataAdesao());
         this.valorContribuicao = s.getValorContribuicao();
         this.vencimentoContribuicao = s.getVencimentoContribuicao();
         this.telefone = s.getTelefone();

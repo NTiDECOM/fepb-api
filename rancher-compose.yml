@@ -1,0 +1,10 @@
+version: '2'
+services:
+    fepbapi-app:
+        scale: 1
+    fepbapi-postgresql:
+        scale: 1
+    
+
+
+

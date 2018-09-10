@@ -26,6 +26,7 @@
     "jhiPrefix": "jhi",
     "clientPackageManager": "yarn",
     "skipClient": true,
-    "herokuDeployType": "git"
+    "herokuDeployType": "git",
+    "enableRancherLoadBalancing": false
   }
 }

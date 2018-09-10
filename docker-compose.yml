@@ -1,0 +1,16 @@
+version: '2'
+services:
+    fepbapi-app:
+        image: fepb-api/fepbapi
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://fepbapi-postgresql:5432/fepbapi
+            - JHIPSTER_SLEEP=10
+        ports:
+            - 8080:8080
+    fepbapi-postgresql:
+        image: postgres:10.4
+        environment:
+            - POSTGRES_USER=fepbapi
+            - POSTGRES_PASSWORD=
+    

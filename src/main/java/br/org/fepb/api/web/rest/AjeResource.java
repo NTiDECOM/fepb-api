@@ -7,10 +7,8 @@ import br.org.fepb.api.reports.GenericReport;
 import br.org.fepb.api.reports.ReportGenerator;
 import br.org.fepb.api.repository.InscricaoRepository;
 import br.org.fepb.api.security.AuthoritiesConstants;
-import br.org.fepb.api.service.FileStorageService;
-import br.org.fepb.api.service.InscricaoService;
-import br.org.fepb.api.service.MailService;
-import br.org.fepb.api.service.OficinaService;
+import br.org.fepb.api.service.*;
+import br.org.fepb.api.service.dto.ConfiguracaoEventoDTO;
 import br.org.fepb.api.service.dto.InscricaoDTO;
 import br.org.fepb.api.service.dto.OficinaDTO;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -52,17 +50,21 @@ public class AjeResource {
 
     private OficinaService oficinaService;
 
+    private ConfiguracaoEventoService configuracaoEventoService;
+
     private final MailService mailService;
 
     public AjeResource(InscricaoService inscricaoService,
                        InscricaoRepository inscricaoRepository,
                        OficinaService oficinaService,
+                       ConfiguracaoEventoService configuracaoEventoService,
                        MailService mailService,
                        ServletContext context) {
 
         this.inscricaoService = inscricaoService;
         this.oficinaService = oficinaService;
         this.inscricaoRepository = inscricaoRepository;
+        this.configuracaoEventoService = configuracaoEventoService;
         this.mailService = mailService;
         this.context = context;
         try {
@@ -97,6 +99,11 @@ public class AjeResource {
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
             .body(resource);
 
+    }
+
+    @GetMapping("/configuracao/{codigo}")
+    public ConfiguracaoEventoDTO pegarConfiguracao(@PathVariable String codigo) {
+        return this.configuracaoEventoService.buscarPorCodigo(codigo);
     }
 
     @GetMapping("/inscricoes")

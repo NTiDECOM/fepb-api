@@ -50,6 +50,10 @@ public class InscricaoService {
         this.oficinaRepository = oficinaRepository;
     }
 
+    public List<Inscricao> listarPorRestricaoAlimentar(RestricaoAlimentarEnum restricao) {
+        return this.inscricaoRepository.findAllByPessoaRestricaoAlimentarOrderByPessoaNome(restricao);
+    }
+
     public List<Inscricao> listarPorOficina(Oficina oficina) {
         return this.inscricaoRepository.findAllByOficinaOrderByPessoaNome(oficina);
     }

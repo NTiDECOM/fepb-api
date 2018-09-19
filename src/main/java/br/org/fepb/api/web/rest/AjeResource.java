@@ -3,6 +3,7 @@ package br.org.fepb.api.web.rest;
 import br.org.fepb.api.domain.Inscricao;
 import br.org.fepb.api.domain.Oficina;
 import br.org.fepb.api.domain.pojo.InscricaoPojo;
+import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
 import br.org.fepb.api.reports.GenericReport;
 import br.org.fepb.api.reports.ReportGenerator;
 import br.org.fepb.api.repository.InscricaoRepository;
@@ -196,6 +197,34 @@ public class AjeResource {
         JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(inscricaoPojoList, false);
         GenericReport relatorio = new GenericReport("oficina", "aje-logo.png");
         relatorio.adicionarParametro("OFICINA", o.getNome());
+        ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(inscricaoPojoList   ), response);
+
+    }
+
+    @GetMapping("/report/alimentacao/{tipo}")
+    public @ResponseBody void reportAlimentacao(HttpServletResponse response, @PathVariable String tipo) throws Exception {
+
+        RestricaoAlimentarEnum r = RestricaoAlimentarEnum.COME_CARNE;
+        if (RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA.toString().equals(tipo)) {
+            r = RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA;
+        } else if (RestricaoAlimentarEnum.VEGETARIANO.toString().equals(tipo)) {
+            r = RestricaoAlimentarEnum.VEGETARIANO;
+        } else if (RestricaoAlimentarEnum.VEGANO.toString().equals(tipo)) {
+            r = RestricaoAlimentarEnum.VEGANO;
+        }
+        List<Inscricao> inscricaoList = inscricaoService.listarPorRestricaoAlimentar(r);
+        List<InscricaoPojo> inscricaoPojoList = new ArrayList<InscricaoPojo>();
+        for (Inscricao i : inscricaoList) {
+            InscricaoPojo iPojo = new InscricaoPojo();
+            iPojo.setNome(WordUtils.capitalizeFully(i.getPessoa().getNome()));
+            iPojo.setDataNascimento(i.getPessoa().getDataNascimento());
+            inscricaoPojoList.add(iPojo);
+        }
+
+        JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(inscricaoPojoList, false);
+        GenericReport relatorio = new GenericReport("alimentacao", "aje-logo.png");
+        relatorio.adicionarParametro("TIPOALIMENTACAO", WordUtils.capitalizeFully(tipo.replace("_", " ")));
+        relatorio.adicionarParametro("TOTAL", String.valueOf(inscricaoPojoList.size()));
         ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(inscricaoPojoList   ), response);
 
     }

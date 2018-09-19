@@ -2,6 +2,7 @@ package br.org.fepb.api.repository;
 
 import br.org.fepb.api.domain.Inscricao;
 import br.org.fepb.api.domain.Oficina;
+import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,5 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Long> {
     List<Inscricao> findAllByOficinaOrderByPessoaNome(Oficina oficina);
     List<Inscricao> findAllByOrderByPessoaNome();
     List<Inscricao> findByTrabalhadorAndFlagEmailAutorizacaoAndPessoaDataNascimentoAfter(Boolean trabalhador, Boolean flagEmailAutorizacao, Date dataNascimento);
+    List<Inscricao> findAllByPessoaRestricaoAlimentarOrderByPessoaNome(RestricaoAlimentarEnum restricaoAlimentar);
 }

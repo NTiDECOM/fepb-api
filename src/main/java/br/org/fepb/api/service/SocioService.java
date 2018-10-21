@@ -16,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -245,18 +247,38 @@ public class SocioService {
         HistoricoContribuicao newH = new HistoricoContribuicao();
         newH.setDataPagamento(formatter.parse(h.getDataPagamento()));
         newH.setValorPago(h.getValorPago());
+        newH.setMesAnoReferencia(h.getMesAnoReferencia());
+
+        if (h.getMetodoContribuicao() != null && h.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DINHEIRO.toString())) {
+            newH.setMetodoContribuicao(MetodoContribuicaoEnum.DINHEIRO);
+        } else if (h.getMetodoContribuicao() != null && h.getMetodoContribuicao().equals(MetodoContribuicaoEnum.DEPOSITO.toString())) {
+            newH.setMetodoContribuicao(MetodoContribuicaoEnum.DEPOSITO);
+        } else if (h.getMetodoContribuicao() != null && h.getMetodoContribuicao().equals(MetodoContribuicaoEnum.TRANSFERENCIA.toString())) {
+            newH.setMetodoContribuicao(MetodoContribuicaoEnum.TRANSFERENCIA);
+        } else if (h.getMetodoContribuicao() != null && h.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_CREDITO.toString())) {
+            newH.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_CREDITO);
+        } else if (h.getMetodoContribuicao() != null && h.getMetodoContribuicao().equals(MetodoContribuicaoEnum.CARTAO_DEBITO.toString())) {
+            newH.setMetodoContribuicao(MetodoContribuicaoEnum.CARTAO_DEBITO);
+        }
+
         newH.setSocio(s);
 
         return this.historicoContribuicaoRepository.save(newH);
 
     }
 
-    public List<HistoricoContribuicao> buscarContribuicaoPorSocio(SocioDTO dto) {
+    public List<HistoricoContribuicaoDTO> buscarContribuicaoPorSocio(SocioDTO dto) {
         Optional<Socio> op = this.socioRepository.findById(dto.getId());
         if (op.isPresent()) {
-            return this.historicoContribuicaoRepository.findBySocio(op.get());
+            List<HistoricoContribuicaoDTO> hcDTO = this.historicoContribuicaoRepository.findBySocio(op.get()).stream()
+                .map(hc -> this.hcToHcDTO(hc)).collect(Collectors.toList());
+            return hcDTO;
         }
         return null;
+    }
+
+    private HistoricoContribuicaoDTO hcToHcDTO(HistoricoContribuicao h) {
+        return new HistoricoContribuicaoDTO(h);
     }
 
 }

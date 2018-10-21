@@ -52,7 +52,7 @@ public class SocioResource {
 
     @GetMapping("/{id}/contribuicao")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<HistoricoContribuicao> pegarContribuicao(@PathVariable Long id) {
+    public List<HistoricoContribuicaoDTO> pegarContribuicao(@PathVariable Long id) {
 
         SocioDTO s = socioService.buscarPorId(id);
         return this.socioService.buscarContribuicaoPorSocio(s);

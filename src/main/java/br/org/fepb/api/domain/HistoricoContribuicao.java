@@ -1,5 +1,6 @@
 package br.org.fepb.api.domain;
 
+import br.org.fepb.api.enumeration.MetodoContribuicaoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -26,6 +27,12 @@ public class HistoricoContribuicao implements Serializable {
 
     @Column(name = "data_pagamento")
     private Date dataPagamento;
+
+    @Column(name = "metodo_contribuicao")
+    private MetodoContribuicaoEnum metodoContribuicao;
+
+    @Column(name = "mes_ano_referencia")
+    private String mesAnoReferencia;
 
     public Socio getSocio() {
         return socio;
@@ -57,5 +64,21 @@ public class HistoricoContribuicao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public MetodoContribuicaoEnum getMetodoContribuicao() {
+        return metodoContribuicao;
+    }
+
+    public void setMetodoContribuicao(MetodoContribuicaoEnum metodoContribuicao) {
+        this.metodoContribuicao = metodoContribuicao;
+    }
+
+    public String getMesAnoReferencia() {
+        return mesAnoReferencia;
+    }
+
+    public void setMesAnoReferencia(String mesAnoReferencia) {
+        this.mesAnoReferencia = mesAnoReferencia;
     }
 }

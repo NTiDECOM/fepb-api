@@ -34,7 +34,9 @@ public class SocioDTO {
     public SocioDTO(Socio s) {
 
         this.id = s.getId();
-        this.dataAdesao = formatter.format(s.getDataAdesao());
+        if (s.getDataAdesao() != null) {
+            this.dataAdesao = formatter.format(s.getDataAdesao());
+        }
         this.valorContribuicao = s.getValorContribuicao();
         this.vencimentoContribuicao = s.getVencimentoContribuicao();
         this.telefone = s.getTelefone();

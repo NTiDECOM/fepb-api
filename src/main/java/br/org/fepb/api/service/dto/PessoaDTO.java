@@ -49,35 +49,35 @@ public class PessoaDTO {
         }
 
         this.sexo = p.getSexo().toString();
-        if (TipoSanguineoEnum.A_POSITIVO
+        if (p.getTipoSanguineo() != null && TipoSanguineoEnum.A_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.A_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.A_NEGATIVO
+        } else if (p.getTipoSanguineo() != null && TipoSanguineoEnum.A_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.A_NEGATIVO.toString();
-        } else if (TipoSanguineoEnum.B_POSITIVO
+        } else if (p.getTipoSanguineo() != null && TipoSanguineoEnum.B_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.B_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.B_NEGATIVO
+        } else if (p.getTipoSanguineo() != null && TipoSanguineoEnum.B_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.B_NEGATIVO.toString();
-        } else if (TipoSanguineoEnum.AB_POSITIVO
+        } else if (p.getTipoSanguineo() != null && TipoSanguineoEnum.AB_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.AB_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.AB_NEGATIVO
+        } else if (p.getTipoSanguineo() != null && TipoSanguineoEnum.AB_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.AB_NEGATIVO.toString();
-        } else if (TipoSanguineoEnum.O_POSITIVO
+        } else if (p.getTipoSanguineo() != null && TipoSanguineoEnum.O_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.O_POSITIVO.toString();
-        } else if (TipoSanguineoEnum.O_NEGATIVO
+        } else if (p.getTipoSanguineo() != null && TipoSanguineoEnum.O_NEGATIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.O_NEGATIVO.toString();
         }
 
-        if (TipoPessoaEnum.FISICA.equals(p.getTipoPessoa())) {
+        if (p.getTipoPessoa() != null && TipoPessoaEnum.FISICA.equals(p.getTipoPessoa())) {
             this.cpf = p.getCpf();
-        } else if (TipoPessoaEnum.JURIDICA.equals(p.getTipoPessoa())) {
+        } else if (p.getTipoPessoa() != null && TipoPessoaEnum.JURIDICA.equals(p.getTipoPessoa())) {
             this.cnpj = p.getCnpj();
         }
 
@@ -85,13 +85,13 @@ public class PessoaDTO {
         this.dataNascimento = formatter.format(p.getDataNascimento());
         this.restricaoSaude = p.getRestricaoSaude();
 
-        if (RestricaoAlimentarEnum.COME_CARNE.equals(p.getRestricaoAlimentar())) {
+        if (p.getRestricaoAlimentar() != null && RestricaoAlimentarEnum.COME_CARNE.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.COME_CARNE.toString();
-        } else if (RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA.equals(p.getRestricaoAlimentar())) {
+        } else if (p.getRestricaoAlimentar() != null && RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.NAO_COME_CARNE_VERMELHA.toString();
-        } else if (RestricaoAlimentarEnum.VEGETARIANO.equals(p.getRestricaoAlimentar())) {
+        } else if (p.getRestricaoAlimentar() != null && RestricaoAlimentarEnum.VEGETARIANO.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.VEGETARIANO.toString();
-        } else if (RestricaoAlimentarEnum.VEGANO.equals(p.getRestricaoAlimentar())) {
+        } else if (p.getRestricaoAlimentar() != null && RestricaoAlimentarEnum.VEGANO.equals(p.getRestricaoAlimentar())) {
             this.restricaoAlimentar = RestricaoAlimentarEnum.VEGANO.toString();
         }
 

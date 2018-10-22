@@ -85,7 +85,11 @@ public class PessoaDTO {
         }
 
         this.email = p.getEmail();
-        this.dataNascimento = formatter.format(p.getDataNascimento());
+
+        if (p.getDataNascimento() != null) {
+            this.dataNascimento = formatter.format(p.getDataNascimento());
+        }
+
         this.restricaoSaude = p.getRestricaoSaude();
 
         if (p.getRestricaoAlimentar() != null && RestricaoAlimentarEnum.COME_CARNE.equals(p.getRestricaoAlimentar())) {

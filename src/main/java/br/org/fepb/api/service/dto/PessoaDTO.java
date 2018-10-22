@@ -48,7 +48,10 @@ public class PessoaDTO {
             this.tipoPessoa = TipoPessoaEnum.JURIDICA.toString();
         }
 
-        this.sexo = p.getSexo().toString();
+        if (p.getSexo() != null) {
+            this.sexo = p.getSexo().toString();
+        }
+
         if (p.getTipoSanguineo() != null && TipoSanguineoEnum.A_POSITIVO
             .equals(p.getTipoSanguineo())) {
             this.tipoSanguineo = TipoSanguineoEnum.A_POSITIVO.toString();

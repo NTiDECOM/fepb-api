@@ -1,7 +1,9 @@
 package br.org.fepb.api.web.rest;
 
 import br.org.fepb.api.domain.HistoricoContribuicao;
+import br.org.fepb.api.domain.Pessoa;
 import br.org.fepb.api.domain.Socio;
+import br.org.fepb.api.domain.pojo.ReportInadimplenteRequest;
 import br.org.fepb.api.domain.pojo.SocioPojo;
 import br.org.fepb.api.enumeration.CategoriaContribuicaoEnum;
 import br.org.fepb.api.enumeration.MetodoContribuicaoEnum;
@@ -20,7 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/socios")
@@ -71,9 +76,14 @@ public class SocioResource {
     public @ResponseBody void reportInadimplentes(HttpServletResponse response,
                                                   @PathVariable String dataInicial,
                                                   @PathVariable String dataFinal,
-                                                  @RequestBody SocioDTO sDTO) throws Exception {
+                                                  @RequestBody ReportInadimplenteRequest req) throws Exception {
 
-        List<Socio> socios = this.socioService.listarPorCategoriaAssociacaoAndModalidadeAssociacao(sDTO);
+        List<Socio> socios = this.socioService.listarInadimplentes(
+            req.getModalidadesAssociacao(),
+            req.getCategoriasAssociacao(),
+            dataInicial,
+            dataFinal);
+
         List<SocioPojo> socioPojoList = new ArrayList<SocioPojo>();
         for (Socio s : socios) {
             if (s.getPessoa() != null) {
@@ -81,11 +91,11 @@ public class SocioResource {
                 pojo.setNome(s.getPessoa().getNome());
 
                 if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE)) {
-                    pojo.setModalidade(CategoriaContribuicaoEnum.CONTRIBUINTE.toString());
+                    pojo.setCategoria(CategoriaContribuicaoEnum.CONTRIBUINTE.toString());
                 } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO)) {
-                    pojo.setModalidade(CategoriaContribuicaoEnum.PARCEIRO.toString());
+                    pojo.setCategoria(CategoriaContribuicaoEnum.PARCEIRO.toString());
                 } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR)) {
-                    pojo.setModalidade(CategoriaContribuicaoEnum.DOADOR.toString());
+                    pojo.setCategoria(CategoriaContribuicaoEnum.DOADOR.toString());
                 }
 
                 if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE)) {
@@ -98,13 +108,13 @@ public class SocioResource {
 
                 socioPojoList.add(pojo);
 
-                JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(socioPojoList, false);
-                GenericReport relatorio = new GenericReport("associados", "fepb-logo.png");
-                ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(socioPojoList   ), response);
-
             }
 
         }
+
+        JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(socioPojoList, false);
+        GenericReport relatorio = new GenericReport("associados", "fepb-logo.png");
+        ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(socioPojoList   ), response);
 
     }
 

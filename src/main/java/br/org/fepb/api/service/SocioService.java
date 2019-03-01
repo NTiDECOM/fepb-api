@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +34,23 @@ public class SocioService {
 
     public List<Socio> listarTodosOrdenado() {
         return this.socioRepository.findAllByOrderByPessoaNome();
+    }
+
+    public List<Socio> listarInadimplentes(List<ModalidadeAssociacaoEnum> modalidades,
+                                           List<CategoriaContribuicaoEnum> categorias,
+                                           String dataInicial,
+                                           String dataFinal) throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dataIni = sdf.parse(dataInicial);
+        Date dataFim = sdf.parse(dataFinal);
+
+        List<Integer> modalidadesInt = modalidades.stream().map(m -> new Integer(m.ordinal())).collect(Collectors.toList());
+        List<Integer> categoriasInt = categorias.stream().map(c -> new Integer(c.ordinal())).collect(Collectors.toList());
+
+        return this.socioRepository.buscarInadimplentes(modalidadesInt,
+                                                        categoriasInt,
+                                                        dataIni, dataFim);
     }
 
     public List<Socio> listarPorCategoriaAssociacaoAndModalidadeAssociacao(SocioDTO s) {

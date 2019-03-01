@@ -4,6 +4,7 @@ import br.org.fepb.api.domain.HistoricoContribuicao;
 import br.org.fepb.api.domain.Socio;
 import br.org.fepb.api.domain.pojo.SocioPojo;
 import br.org.fepb.api.enumeration.CategoriaContribuicaoEnum;
+import br.org.fepb.api.enumeration.MetodoContribuicaoEnum;
 import br.org.fepb.api.enumeration.ModalidadeAssociacaoEnum;
 import br.org.fepb.api.reports.GenericReport;
 import br.org.fepb.api.reports.ReportGenerator;
@@ -63,6 +64,48 @@ public class SocioResource {
     @ResponseStatus(HttpStatus.OK)
     public Socio updateSocio(@RequestBody SocioDTO s, @PathVariable Long id) throws Exception {
         return this.socioService.atualizarSocio(s);
+    }
+
+    @PostMapping("/reports/inadimplentes/{dataInicial}/{dataFinal}")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody void reportInadimplentes(HttpServletResponse response,
+                                                  @PathVariable String dataInicial,
+                                                  @PathVariable String dataFinal,
+                                                  @RequestBody SocioDTO sDTO) throws Exception {
+
+        List<Socio> socios = this.socioService.listarPorCategoriaAssociacaoAndModalidadeAssociacao(sDTO);
+        List<SocioPojo> socioPojoList = new ArrayList<SocioPojo>();
+        for (Socio s : socios) {
+            if (s.getPessoa() != null) {
+                SocioPojo pojo = new SocioPojo();
+                pojo.setNome(s.getPessoa().getNome());
+
+                if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE)) {
+                    pojo.setModalidade(CategoriaContribuicaoEnum.CONTRIBUINTE.toString());
+                } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO)) {
+                    pojo.setModalidade(CategoriaContribuicaoEnum.PARCEIRO.toString());
+                } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR)) {
+                    pojo.setModalidade(CategoriaContribuicaoEnum.DOADOR.toString());
+                }
+
+                if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE)) {
+                    pojo.setModalidade(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString());
+                } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO)) {
+                    pojo.setModalidade(ModalidadeAssociacaoEnum.EFETIVO.toString());
+                } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO)) {
+                    pojo.setModalidade(ModalidadeAssociacaoEnum.FEDERATIVO.toString());
+                }
+
+                socioPojoList.add(pojo);
+
+                JRBeanCollectionDataSource rel = new JRBeanCollectionDataSource(socioPojoList, false);
+                GenericReport relatorio = new GenericReport("associados", "fepb-logo.png");
+                ReportGenerator.print(relatorio, new JRBeanCollectionDataSource(socioPojoList   ), response);
+
+            }
+
+        }
+
     }
 
     @GetMapping("/reports/associados")

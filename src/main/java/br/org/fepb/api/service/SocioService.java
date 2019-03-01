@@ -36,6 +36,28 @@ public class SocioService {
         return this.socioRepository.findAllByOrderByPessoaNome();
     }
 
+    public List<Socio> listarPorCategoriaAssociacaoAndModalidadeAssociacao(SocioDTO s) {
+        Socio sBusca = new Socio();
+        if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.DOADOR.toString())) {
+            sBusca.setCategoriaAssociacao(CategoriaContribuicaoEnum.DOADOR);
+        } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.PARCEIRO.toString())) {
+            sBusca.setCategoriaAssociacao(CategoriaContribuicaoEnum.PARCEIRO);
+        } else if (s.getCategoriaAssociacao()!= null && s.getCategoriaAssociacao().equals(CategoriaContribuicaoEnum.CONTRIBUINTE.toString())) {
+            sBusca.setCategoriaAssociacao(CategoriaContribuicaoEnum.CONTRIBUINTE);
+        }
+
+        if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.EFETIVO.toString())) {
+            sBusca.setModalidadeAssociacao(ModalidadeAssociacaoEnum.EFETIVO);
+        } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.FEDERATIVO.toString())) {
+            sBusca.setModalidadeAssociacao(ModalidadeAssociacaoEnum.FEDERATIVO);
+        } else if (s.getModalidadeAssociacao() != null && s.getModalidadeAssociacao().equals(ModalidadeAssociacaoEnum.CONTRIBUINTE.toString())) {
+            sBusca.setModalidadeAssociacao(ModalidadeAssociacaoEnum.CONTRIBUINTE);
+        }
+        return this.socioRepository.findAllByCategoriaAssociacaoAndModalidadeAssociacaoOrderByPessoaNome(
+            sBusca.getCategoriaAssociacao(),
+            sBusca.getModalidadeAssociacao());
+    }
+
     public Socio salvarSocio(SocioDTO s) throws ParseException {
 
         Pessoa newPessoa = new Pessoa();

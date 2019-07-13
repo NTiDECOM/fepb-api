@@ -1,11 +1,13 @@
 package br.org.fepb.api.service;
 
+import br.org.fepb.api.domain.Cidade;
 import br.org.fepb.api.domain.Inscricao;
 import br.org.fepb.api.domain.Oficina;
 import br.org.fepb.api.domain.Pessoa;
 import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
 import br.org.fepb.api.enumeration.SexoEnum;
 import br.org.fepb.api.enumeration.TipoSanguineoEnum;
+import br.org.fepb.api.repository.CidadeRepository;
 import br.org.fepb.api.repository.InscricaoRepository;
 import br.org.fepb.api.repository.OficinaRepository;
 import br.org.fepb.api.service.dto.InscricaoDTO;
@@ -18,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,7 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,12 +42,22 @@ public class InscricaoService {
 
     private InscricaoRepository inscricaoRepository;
 
+    private CidadeRepository cidadeRepository;
+
     private OficinaRepository oficinaRepository;
 
     public InscricaoService(InscricaoRepository inscricaoRepository,
-                            OficinaRepository oficinaRepository) {
+                            OficinaRepository oficinaRepository,
+                            CidadeRepository cidadeRepository) {
         this.inscricaoRepository = inscricaoRepository;
         this.oficinaRepository = oficinaRepository;
+        this.cidadeRepository = cidadeRepository;
+    }
+
+    public Inscricao validarInscricao(InscricaoDTO i) throws ParseException {
+        Inscricao iUpdate = inscricaoRepository.getOne(i.getId());
+        iUpdate.setValida(i.isValida());
+        return inscricaoRepository.save(iUpdate);
     }
 
     public List<Inscricao> listarPorRestricaoAlimentar(RestricaoAlimentarEnum restricao) {
@@ -224,8 +234,16 @@ public class InscricaoService {
         newInscricao.setTelefone(i.getTelefone());
         newInscricao.setTrabalhador(new Boolean(i.isTrabalhador()));
         newInscricao.setPago(new Boolean(false));
+        newInscricao.setValida(new Boolean(false));
 
         newInscricao.setPessoa(newPessoa);
+
+        if (i.getCidade() != null) {
+            Optional<Cidade> op = cidadeRepository.findById(i.getCidade().getId());
+            if (op.isPresent()) {
+                newInscricao.setCidade(op.get());
+            }
+        }
 
         if (i.getOficina() != null && i.getOficina().getId() != null) {
             Oficina o = oficinaRepository.getOne(i.getOficina().getId());

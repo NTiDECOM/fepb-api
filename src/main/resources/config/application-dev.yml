@@ -33,8 +33,8 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/fepb_api
-        username: victorximenis
-        password: pf13.500
+        username: postgres
+        password: 1234
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -54,6 +54,7 @@ spring:
         port: 587
         username: aje@fepb.org.br
         password: joannaangelis
+
         protocol: smtp
         tls: true
         properties.mail.smtp:

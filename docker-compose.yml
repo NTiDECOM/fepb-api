@@ -1,6 +1,11 @@
 version: '2'
 services:
-    fepbapi-app:
+    springboot:
+        build: .
+        container_name: star-wars-api
+        ports:
+            - 8182:8080
+    springboot:
         image: fepb-api/fepbapi
         environment:
             - SPRING_PROFILES_ACTIVE=prod,swagger

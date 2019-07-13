@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.success.title}">Inscrição AJE 2018</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/materia/bootstrap.min.css">
+</head>
+<body>
+<div class="container" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <h2>Temos uma inscrição para você aprovar!</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <p>
+                Olá <span th:text="${nomeCoordenador}"></span>. Recebemos uma inscrição para o AJE 2019 e você foi
+                indicado como coordenador do jovem participante. Abaixo, alguns dados da inscrição e link para aprovação.
+            </p>
+            <p>
+                <strong>Nome: </strong><span th:text="${pessoa.nome}"></span><br/>
+                <strong>Instituição: </strong><span th:text="${instituicao}"></span><br/>
+                <strong>Cidade: </strong><span th:text="${cidade}"></span><br/>
+            </p>
+        </div>
+    </div>
+
+    <p>
+        <span>Atenciosamente, </span>
+        <br/>
+        <em>AJE 2018.</em>
+    </p>
+</div>
+</body>
+</html>

@@ -137,5 +137,5 @@ jhipster:
 
 # application:
 mercadopago:
-    client-id:
-    client-secret: 
+    client-id: ID
+    client-secret: SECRET

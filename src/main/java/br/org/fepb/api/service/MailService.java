@@ -100,13 +100,13 @@ public class MailService {
     }
 
     @Async
-    public void sendSuccessEmailFromTemplate(Pessoa p, String templateName, String titleKey) {
+    public void sendSuccessEmailFromTemplate(Inscricao i, String templateName, String titleKey) {
         Context context = new Context();
-        context.setVariable(PESSOA, p);
-        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        context.setVariable(PESSOA, i.getPessoa());
+        context.setVariable(BASE_URL, "http://app-aje.fepb.org.br/pagamento/" + i.getId());
         String content = templateEngine.process(templateName, context);
         String subject = "INSCRIÇÃO - AJE 2019";
-        sendEmail(p.getEmail(), subject, content, false, true, null);
+        sendEmail(i.getPessoa().getEmail(), subject, content, false, true, null);
     }
 
     @Async
@@ -153,9 +153,9 @@ public class MailService {
     }
 
     @Async
-    public void sendSuccessMail(Pessoa p) {
-        log.debug("Sending success email to '{}'", p.getEmail());
-        sendSuccessEmailFromTemplate(p, "mail/successEmail", "email.reset.title");
+    public void sendSuccessMail(Inscricao i) {
+        log.debug("Sending success email to '{}'", i.getPessoa().getEmail());
+        sendSuccessEmailFromTemplate(i, "mail/successEmail", "email.reset.title");
     }
 
     @Async

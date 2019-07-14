@@ -15,8 +15,12 @@
     <div class="row">
         <div class="col-12 col-md-12">
             <p>
-                Olá <span th:text="${pessoa.comoChamar}"></span>. O pagamento deve ser realizado em até 2x por depósito em conta, sendo as parcelas no valor
-                de R$ 70,00 e com vencimento 06/08/2018 e 06/09/2018.
+                Olá <span th:text="${pessoa.comoChamar}"></span>. O pagamento deve ser realizado através do Mercado Pago nas opções Boleto, Cartão de Crédito ou Lotérica.
+            </p>
+            <p>
+                Para realizar o pagamento da sua inscrição acesse a página de pagamento da sua inscrição no link abaixo.<br />
+                <a th:href="${baseUrl}"
+                   th:text="${baseUrl}">Pagamento AJE 2019</a>
             </p>
             <p>
 

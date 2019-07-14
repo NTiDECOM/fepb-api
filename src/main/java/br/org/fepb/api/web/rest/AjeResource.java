@@ -126,7 +126,7 @@ public class AjeResource {
     @PostMapping("/inscricoes")
     public Inscricao salvaInscricao(@RequestBody InscricaoDTO inscricao) throws ParseException {
         Inscricao i = inscricaoService.salvarInscricao(inscricao);
-        mailService.sendSuccessMail(i.getPessoa());
+        mailService.sendSuccessMail(i);
         mailService.sendCoordenadorMail(i);
         return i;
     }

@@ -250,7 +250,6 @@ public class InscricaoService {
         newInscricao.setTrabalhador(new Boolean(i.isTrabalhador()));
         newInscricao.setPago(new Boolean(false));
         newInscricao.setValida(new Boolean(false));
-        newInscricao.setValor(c.getValorPadrao());
 
         newInscricao.setPessoa(newPessoa);
 
@@ -265,6 +264,18 @@ public class InscricaoService {
             Oficina o = oficinaRepository.getOne(i.getOficina().getId());
             newInscricao.setOficina(o);
         }
+
+        if (newInscricao.getCidade() != null &&
+            newInscricao.getCidade().getEstado() != null) {
+
+            if (!(newInscricao.getCidade().getEstado().getUf().equalsIgnoreCase("PB"))) {
+                newInscricao.setValor(c.getValorDesconto());
+            } else {
+                newInscricao.setValor(c.getValorPadrao());
+            }
+
+        }
+
         return inscricaoRepository.save(newInscricao);
 
     }

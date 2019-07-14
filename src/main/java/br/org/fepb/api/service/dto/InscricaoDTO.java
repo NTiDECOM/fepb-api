@@ -28,6 +28,8 @@ public class InscricaoDTO {
 
     private Float valor;
 
+    private PagamentoDTO pagamento;
+
     public InscricaoDTO() { }
 
     public InscricaoDTO(Inscricao i) {
@@ -40,6 +42,10 @@ public class InscricaoDTO {
         this.emailCoordenador = i.getEmailCoordenador();
         this.pessoa = new PessoaDTO(i.getPessoa());
         this.valor = i.getValor();
+
+        if (i.getPagamento() != null) {
+            this.pagamento = new PagamentoDTO(i.getPagamento());
+        }
 
         if (i.getOficina() != null) {
             this.oficina = new OficinaDTO(i.getOficina());
@@ -149,5 +155,13 @@ public class InscricaoDTO {
 
     public void setValor(Float valor) {
         this.valor = valor;
+    }
+
+    public PagamentoDTO getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(PagamentoDTO pagamento) {
+        this.pagamento = pagamento;
     }
 }

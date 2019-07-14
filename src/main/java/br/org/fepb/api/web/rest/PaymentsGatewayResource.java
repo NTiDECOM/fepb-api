@@ -2,11 +2,9 @@ package br.org.fepb.api.web.rest;
 
 import br.org.fepb.api.domain.Inscricao;
 import br.org.fepb.api.domain.Pagamento;
-import br.org.fepb.api.repository.InscricaoRepository;
 import br.org.fepb.api.service.InscricaoService;
 import br.org.fepb.api.service.PagamentoService;
 import br.org.fepb.api.service.dto.InscricaoDTO;
-import br.org.fepb.api.service.dto.IpnDTO;
 import br.org.fepb.api.service.dto.PreferenceDTO;
 import com.mercadopago.MercadoPago;
 import com.mercadopago.exceptions.MPException;
@@ -17,9 +15,6 @@ import com.mercadopago.resources.datastructures.preference.Payer;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/payment-gateway")

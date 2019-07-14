@@ -54,7 +54,9 @@ public class PaymentsGatewayResource {
             Payment p = Payment.findById(dataId.toString());
 
             if (p.getStatus() != null) {
-                Pagamento pag = this.pagamentoService.buscarPorId(Long.parseLong(p.getExternalReference()));
+
+                Inscricao i = inscricaoService.getInscricaoEntity(Long.parseLong(p.getExternalReference()));
+                Pagamento pag = i.getPagamento();
                 if (pag != null) {
                     pag.setStatus(p.getStatus().toString());
                     this.pagamentoService.salvar(pag);

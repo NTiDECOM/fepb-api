@@ -43,11 +43,12 @@ public class PaymentsGatewayResource {
 
     @PostMapping("/ipn")
     @ResponseStatus(HttpStatus.OK)
-    public void recieveIpn(@RequestParam(name = "id") Long id,
-                           @RequestParam(name = "topic") String topic) throws MPException {
+    public void recieveIpn(@RequestParam(name = "id", required = false) Long id,
+                           @RequestParam(name = "data.id", required = false) Long dataId,
+                           @RequestParam(name = "topic", required = false) String topic) throws MPException {
 
-        if (topic != null && id != null) {
-            Payment p = Payment.findById(id.toString());
+        if (topic != null && topic.equals("payment") && (id != null || dataId != null)) {
+            Payment p = Payment.findById((id != null) ? id.toString() : dataId.toString());
             if (p.getStatus() == Payment.Status.approved) {
                 Pagamento pag = this.pagamentoService.buscarPorId(Long.parseLong(p.getExternalReference()));
                 if (pag != null) {

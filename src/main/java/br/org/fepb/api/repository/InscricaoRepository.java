@@ -18,4 +18,5 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Long> {
     List<Inscricao> findAllByOrderByPessoaNome();
     List<Inscricao> findByTrabalhadorAndFlagEmailAutorizacaoAndPessoaDataNascimentoAfter(Boolean trabalhador, Boolean flagEmailAutorizacao, Date dataNascimento);
     List<Inscricao> findAllByPessoaRestricaoAlimentarOrderByPessoaNome(RestricaoAlimentarEnum restricaoAlimentar);
+
 }

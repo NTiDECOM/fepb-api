@@ -1,5 +1,6 @@
 package br.org.fepb.api.service;
 
+import br.org.fepb.api.domain.Inscricao;
 import br.org.fepb.api.domain.Pessoa;
 import br.org.fepb.api.domain.User;
 
@@ -34,6 +35,12 @@ public class MailService {
 
     private static final String PESSOA = "pessoa";
 
+    private static final String NOME_COORDENADOR = "nomeCoordenador";
+
+    private static final String CIDADE = "cidade";
+
+    private static final String INSTITUICAO = "instituicao";
+
     private static final String BASE_URL = "baseUrl";
 
     private final JHipsterProperties jHipsterProperties;
@@ -63,7 +70,7 @@ public class MailService {
         try {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, StandardCharsets.UTF_8.name());
             message.setTo(to);
-            message.setFrom(jHipsterProperties.getMail().getFrom(), "AJE 2018");
+            message.setFrom(jHipsterProperties.getMail().getFrom(), "AJE 2019");
             message.setSubject(subject);
             message.setText(content, isHtml);
             if (attachment != null) {
@@ -98,8 +105,21 @@ public class MailService {
         context.setVariable(PESSOA, p);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
-        String subject = "INSCRIÇÃO - AJE 2018";
+        String subject = "INSCRIÇÃO - AJE 2019";
         sendEmail(p.getEmail(), subject, content, false, true, null);
+    }
+
+    @Async
+    public void sendCoordinatorEmailFromTemplate(Inscricao i, String templateName, String titleKey) {
+        Context context = new Context();
+        context.setVariable(NOME_COORDENADOR, i.getNomeCoordenador());
+        context.setVariable(PESSOA, i.getPessoa());
+        context.setVariable(CIDADE, i.getCidade());
+        context.setVariable(INSTITUICAO, i.getInstituicao());
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = "APROVAR INSCRIÇÃO - AJE 2019";
+        sendEmail(i.getEmailCoordenador(), subject, content, false, true, null);
     }
 
     @Async
@@ -108,7 +128,7 @@ public class MailService {
         context.setVariable(PESSOA, p);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
-        String subject = "AUTORIZAÇÃO DE MENOR - AJE 2018";
+        String subject = "AUTORIZAÇÃO DE MENOR - AJE 2019";
 
         File attachment = new File("src/main/java/br/org/fepb/api/reports/docs/autorizacao_menor_aje.docx");
         sendEmail(p.getEmail(), subject, content, true, true, attachment);
@@ -136,6 +156,12 @@ public class MailService {
     public void sendSuccessMail(Pessoa p) {
         log.debug("Sending success email to '{}'", p.getEmail());
         sendSuccessEmailFromTemplate(p, "mail/successEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendCoordenadorMail(Inscricao i) {
+        log.debug("Sending coordinator email to '{}'", i.getEmailCoordenador());
+        sendCoordinatorEmailFromTemplate(i, "mail/coordinatorEmail", "email.reset.title");
     }
 
     @Async

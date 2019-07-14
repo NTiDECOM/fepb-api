@@ -28,6 +28,9 @@ public class Inscricao implements Serializable {
     @Column(name = "email_coordenador")
     private String emailCoordenador;
 
+    @Column(name = "valida")
+    private Boolean valida;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
@@ -41,6 +44,10 @@ public class Inscricao implements Serializable {
 
     @Column(name = "flag_email_autoriza")
     private Boolean flagEmailAutorizacao;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cidade")
+    private Cidade cidade;
 
     public Boolean getTrabalhador() {
         return trabalhador;
@@ -114,11 +121,27 @@ public class Inscricao implements Serializable {
         this.pago = pago;
     }
 
+    public Boolean getValida() {
+        return valida;
+    }
+
+    public void setValida(Boolean valida) {
+        this.valida = valida;
+    }
+
     public Boolean getFlagEmailAutorizacao() {
         return flagEmailAutorizacao;
     }
 
     public void setFlagEmailAutorizacao(Boolean flagEmailAutorizacao) {
         this.flagEmailAutorizacao = flagEmailAutorizacao;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 }

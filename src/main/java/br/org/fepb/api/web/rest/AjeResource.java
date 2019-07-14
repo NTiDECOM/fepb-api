@@ -12,6 +12,7 @@ import br.org.fepb.api.service.*;
 import br.org.fepb.api.service.dto.ConfiguracaoEventoDTO;
 import br.org.fepb.api.service.dto.InscricaoDTO;
 import br.org.fepb.api.service.dto.OficinaDTO;
+import com.bea.xml.stream.samples.Parse;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.lang.WordUtils;
 import org.slf4j.Logger;
@@ -53,9 +54,12 @@ public class AjeResource {
 
     private ConfiguracaoEventoService configuracaoEventoService;
 
+    private EnderecoService enderecoService;
+
     private final MailService mailService;
 
     public AjeResource(InscricaoService inscricaoService,
+                       EnderecoService enderecoService,
                        InscricaoRepository inscricaoRepository,
                        OficinaService oficinaService,
                        ConfiguracaoEventoService configuracaoEventoService,
@@ -63,6 +67,7 @@ public class AjeResource {
                        ServletContext context) {
 
         this.inscricaoService = inscricaoService;
+        this.enderecoService = enderecoService;
         this.oficinaService = oficinaService;
         this.inscricaoRepository = inscricaoRepository;
         this.configuracaoEventoService = configuracaoEventoService;
@@ -108,6 +113,7 @@ public class AjeResource {
     }
 
     @GetMapping("/inscricoes")
+
     public List<Inscricao> listaInscricoes() {
         return inscricaoRepository.findAll();
     }
@@ -121,6 +127,7 @@ public class AjeResource {
     public Inscricao salvaInscricao(@RequestBody InscricaoDTO inscricao) throws ParseException {
         Inscricao i = inscricaoService.salvarInscricao(inscricao);
         mailService.sendSuccessMail(i.getPessoa());
+        mailService.sendCoordenadorMail(i);
         return i;
     }
 
@@ -128,6 +135,17 @@ public class AjeResource {
     public Inscricao atualizarInscricao(@RequestBody InscricaoDTO inscricao, @PathVariable Long id) throws ParseException {
         Inscricao i = inscricaoService.atualizarInscricao(inscricao, id);
         return i;
+    }
+
+    @PostMapping("/inscricoes/validar-inscricao")
+    public Inscricao validarInscricao(@RequestBody InscricaoDTO inscricao) throws ParseException {
+        Inscricao i = inscricaoService.validarInscricao(inscricao);
+        return i;
+    }
+
+    public List<Inscricao> listarInscricoesPorEstado() {
+        // TODO: Implementar pesquisa de inscrições por Estado ou Coordenadoria
+        return null;
     }
 
     @GetMapping("/oficinas")

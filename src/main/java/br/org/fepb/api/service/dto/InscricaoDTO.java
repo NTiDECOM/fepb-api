@@ -22,6 +22,10 @@ public class InscricaoDTO {
 
     private boolean pago;
 
+    private boolean valida;
+
+    private CidadeDTO cidade;
+
     public InscricaoDTO() { }
 
     public InscricaoDTO(Inscricao i) {
@@ -41,7 +45,11 @@ public class InscricaoDTO {
         }
 
         this.pago = i.getPago().booleanValue();
+        this.valida = i.getValida().booleanValue();
 
+        if (i.getCidade() != null) {
+            this.cidade = new CidadeDTO(i.getCidade());
+        }
     }
 
     public Long getId() {
@@ -114,5 +122,21 @@ public class InscricaoDTO {
 
     public void setPago(boolean pago) {
         this.pago = pago;
+    }
+
+    public boolean isValida() {
+        return valida;
+    }
+
+    public void setValida(boolean valida) {
+        this.valida = valida;
+    }
+
+    public CidadeDTO getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(CidadeDTO cidade) {
+        this.cidade = cidade;
     }
 }

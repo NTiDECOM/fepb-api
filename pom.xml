@@ -83,6 +83,7 @@
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
 
+        <docker.image.prefix>springio</docker.image.prefix>
         <!-- jhipster-needle-maven-property -->
     </properties>
 

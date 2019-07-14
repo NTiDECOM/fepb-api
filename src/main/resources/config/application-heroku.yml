@@ -46,3 +46,6 @@ spring:
         cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:
         cache: false
+mercadopago:
+    client-id: ${MP_CLIENT_ID}
+    client-secret: ${MP_CLIENT_SECRET}

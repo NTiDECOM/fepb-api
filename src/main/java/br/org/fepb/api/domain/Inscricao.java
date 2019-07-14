@@ -49,6 +49,9 @@ public class Inscricao implements Serializable {
     @JoinColumn(name = "id_cidade")
     private Cidade cidade;
 
+    @OneToOne(mappedBy = "inscricao")
+    private Pagamento pagamento;
+
     public Boolean getTrabalhador() {
         return trabalhador;
     }
@@ -143,5 +146,13 @@ public class Inscricao implements Serializable {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 }

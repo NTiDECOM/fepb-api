@@ -175,6 +175,14 @@ public class InscricaoService {
         return dto;
     }
 
+    public Inscricao getInscricaoEntity(Long id) {
+        Optional<Inscricao> i = this.inscricaoRepository.findById(id);
+        if (i.isPresent()) {
+            return i.get();
+        }
+        return null;
+    }
+
     public List<Inscricao> listarInscricoes() {
         return inscricaoRepository.findAllByOrderByPessoaNome();
     }

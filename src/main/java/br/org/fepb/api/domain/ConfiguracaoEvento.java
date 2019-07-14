@@ -16,6 +16,12 @@ public class ConfiguracaoEvento {
 
     private String codigo;
 
+    @Column(name = "valor_padrao")
+    private Float valorPadrao;
+
+    @Column(name = "valor_desconto")
+    private Float valorDesconto;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +52,21 @@ public class ConfiguracaoEvento {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public Float getValorPadrao() {
+        return valorPadrao;
+    }
+
+    public void setValorPadrao(Float valorPadrao) {
+        this.valorPadrao = valorPadrao;
+    }
+
+    public Float getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(Float valorDesconto) {
+        this.valorDesconto = valorDesconto;
     }
 }

@@ -8,6 +8,8 @@ public class ConfiguracaoEventoDTO {
     private String nome;
     private Boolean liberado;
     private String codigo;
+    private Float valorPadrao;
+    private Float valorDesconto;
 
     public ConfiguracaoEventoDTO() {}
 
@@ -16,6 +18,8 @@ public class ConfiguracaoEventoDTO {
         this.nome = c.getNome();
         this.liberado = c.getLiberado();
         this.codigo = c.getCodigo();
+        this.valorPadrao = c.getValorPadrao();
+        this.valorDesconto = c.getValorDesconto();
     }
 
     public Long getId() {
@@ -48,5 +52,21 @@ public class ConfiguracaoEventoDTO {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public Float getValorPadrao() {
+        return valorPadrao;
+    }
+
+    public void setValorPadrao(Float valorPadrao) {
+        this.valorPadrao = valorPadrao;
+    }
+
+    public Float getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(Float valorDesconto) {
+        this.valorDesconto = valorDesconto;
     }
 }

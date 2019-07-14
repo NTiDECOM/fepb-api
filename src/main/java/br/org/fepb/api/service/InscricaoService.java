@@ -10,6 +10,7 @@ import br.org.fepb.api.enumeration.TipoSanguineoEnum;
 import br.org.fepb.api.repository.CidadeRepository;
 import br.org.fepb.api.repository.InscricaoRepository;
 import br.org.fepb.api.repository.OficinaRepository;
+import br.org.fepb.api.service.dto.ConfiguracaoEventoDTO;
 import br.org.fepb.api.service.dto.InscricaoDTO;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -46,12 +47,16 @@ public class InscricaoService {
 
     private OficinaRepository oficinaRepository;
 
+    private ConfiguracaoEventoService configuracaoEventoService;
+
     public InscricaoService(InscricaoRepository inscricaoRepository,
                             OficinaRepository oficinaRepository,
-                            CidadeRepository cidadeRepository) {
+                            CidadeRepository cidadeRepository,
+                            ConfiguracaoEventoService configuracaoEventoService) {
         this.inscricaoRepository = inscricaoRepository;
         this.oficinaRepository = oficinaRepository;
         this.cidadeRepository = cidadeRepository;
+        this.configuracaoEventoService = configuracaoEventoService;
     }
 
     public Inscricao validarInscricao(InscricaoDTO i) throws ParseException {
@@ -189,6 +194,8 @@ public class InscricaoService {
 
     public Inscricao salvarInscricao(InscricaoDTO i) throws ParseException {
 
+        ConfiguracaoEventoDTO c = this.configuracaoEventoService.buscarPorCodigo("AJE2019");
+
         Pessoa newPessoa = new Pessoa();
         newPessoa.setNome(i.getPessoa().getNome());
         newPessoa.setComoChamar(i.getPessoa().getComoChamar());
@@ -243,6 +250,7 @@ public class InscricaoService {
         newInscricao.setTrabalhador(new Boolean(i.isTrabalhador()));
         newInscricao.setPago(new Boolean(false));
         newInscricao.setValida(new Boolean(false));
+        newInscricao.setValor(c.getValorPadrao());
 
         newInscricao.setPessoa(newPessoa);
 

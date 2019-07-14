@@ -26,6 +26,8 @@ public class InscricaoDTO {
 
     private CidadeDTO cidade;
 
+    private Float valor;
+
     public InscricaoDTO() { }
 
     public InscricaoDTO(Inscricao i) {
@@ -37,6 +39,7 @@ public class InscricaoDTO {
         this.nomeCoordenador = i.getNomeCoordenador();
         this.emailCoordenador = i.getEmailCoordenador();
         this.pessoa = new PessoaDTO(i.getPessoa());
+        this.valor = i.getValor();
 
         if (i.getOficina() != null) {
             this.oficina = new OficinaDTO(i.getOficina());
@@ -138,5 +141,13 @@ public class InscricaoDTO {
 
     public void setCidade(CidadeDTO cidade) {
         this.cidade = cidade;
+    }
+
+    public Float getValor() {
+        return valor;
+    }
+
+    public void setValor(Float valor) {
+        this.valor = valor;
     }
 }

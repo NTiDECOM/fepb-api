@@ -39,17 +39,21 @@ public class PaymentsGatewayResource {
 
         MercadoPago.SDK.configure(env.getProperty("mercadopago.client-id"),
                                 env.getProperty("mercadopago.client-secret"));
+
     }
 
     @PostMapping("/ipn")
     @ResponseStatus(HttpStatus.OK)
-    public void recieveIpn(@RequestParam(name = "id", required = false) Long id,
-                           @RequestParam(name = "data.id", required = false) Long dataId,
-                           @RequestParam(name = "topic", required = false) String topic) throws MPException {
+    public void recieveIpn(@RequestParam(name = "data.id", required = false) Long dataId,
+                           @RequestParam(name = "type", required = false) String type) throws MPException {
 
-        if (topic != null && topic.equals("payment") && (id != null || dataId != null)) {
-            Payment p = Payment.findById((id != null) ? id.toString() : dataId.toString());
-            if (p.getStatus() == Payment.Status.approved) {
+        if ((type != null) &&
+            (type.equals("payment")) &&
+            (dataId != null)) {
+
+            Payment p = Payment.findById(dataId.toString());
+
+            if (p.getStatus() != null) {
                 Pagamento pag = this.pagamentoService.buscarPorId(Long.parseLong(p.getExternalReference()));
                 if (pag != null) {
                     pag.setStatus(p.getStatus().toString());
@@ -85,7 +89,7 @@ public class PaymentsGatewayResource {
         Item item = new Item();
         item.setQuantity(1);
         item.setTitle("Inscrição AJE 2019");
-        item.setUnitPrice(new Float(160.00));
+        item.setUnitPrice(new Float(i.getValor()));
 
         p.appendItem(item);
         p.setPayer(payer);

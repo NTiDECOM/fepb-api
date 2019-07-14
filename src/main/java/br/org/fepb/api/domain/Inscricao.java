@@ -52,6 +52,8 @@ public class Inscricao implements Serializable {
     @OneToOne(mappedBy = "inscricao")
     private Pagamento pagamento;
 
+    private Float valor;
+
     public Boolean getTrabalhador() {
         return trabalhador;
     }
@@ -154,5 +156,13 @@ public class Inscricao implements Serializable {
 
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
+    }
+
+    public Float getValor() {
+        return valor;
+    }
+
+    public void setValor(Float valor) {
+        this.valor = valor;
     }
 }

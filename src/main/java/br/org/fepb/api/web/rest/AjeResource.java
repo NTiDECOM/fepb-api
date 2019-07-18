@@ -7,30 +7,24 @@ import br.org.fepb.api.enumeration.RestricaoAlimentarEnum;
 import br.org.fepb.api.reports.GenericReport;
 import br.org.fepb.api.reports.ReportGenerator;
 import br.org.fepb.api.repository.InscricaoRepository;
-import br.org.fepb.api.security.AuthoritiesConstants;
 import br.org.fepb.api.service.*;
 import br.org.fepb.api.service.dto.ConfiguracaoEventoDTO;
 import br.org.fepb.api.service.dto.InscricaoDTO;
 import br.org.fepb.api.service.dto.OficinaDTO;
-import com.bea.xml.stream.samples.Parse;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.lang.WordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -113,7 +107,6 @@ public class AjeResource {
     }
 
     @GetMapping("/inscricoes")
-
     public List<Inscricao> listaInscricoes() {
         return inscricaoRepository.findAll();
     }
@@ -138,9 +131,9 @@ public class AjeResource {
     }
 
     @PostMapping("/inscricoes/validar-inscricao")
-    public Inscricao validarInscricao(@RequestBody InscricaoDTO inscricao) throws ParseException {
+    public InscricaoDTO validarInscricao(@RequestBody InscricaoDTO inscricao) throws ParseException {
         Inscricao i = inscricaoService.validarInscricao(inscricao);
-        return i;
+        return new InscricaoDTO(i);
     }
 
     public List<Inscricao> listarInscricoesPorEstado() {

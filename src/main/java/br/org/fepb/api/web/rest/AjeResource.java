@@ -120,7 +120,9 @@ public class AjeResource {
     public Inscricao salvaInscricao(@RequestBody InscricaoDTO inscricao) throws ParseException {
         Inscricao i = inscricaoService.salvarInscricao(inscricao);
         mailService.sendSuccessMail(i);
-        mailService.sendCoordenadorMail(i);
+        if (!i.getTrabalhador()) {
+            mailService.sendCoordenadorMail(i);
+        }
         return i;
     }
 

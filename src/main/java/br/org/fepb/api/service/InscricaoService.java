@@ -249,7 +249,12 @@ public class InscricaoService {
         newInscricao.setTelefone(i.getTelefone());
         newInscricao.setTrabalhador(new Boolean(i.isTrabalhador()));
         newInscricao.setPago(new Boolean(false));
-        newInscricao.setValida(new Boolean(false));
+        if (i.isTrabalhador()) {
+            newInscricao.setValida(new Boolean(true));
+        } else {
+            newInscricao.setValida(new Boolean(false));
+        }
+
 
         newInscricao.setPessoa(newPessoa);
 

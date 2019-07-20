@@ -23,6 +23,10 @@
                 <strong>Instituição: </strong><span th:text="${instituicao}"></span><br/>
                 <strong>Cidade: </strong><span th:text="${cidade}"></span><br/>
             </p>
+            <p>
+                Para validar esta inscrição acesse o link para aprovação: <a th:href="${baseUrl}"
+                                                                             th:text="${baseUrl}"></a>
+            </p>
         </div>
     </div>
 

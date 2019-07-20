@@ -114,9 +114,9 @@ public class MailService {
         Context context = new Context();
         context.setVariable(NOME_COORDENADOR, i.getNomeCoordenador());
         context.setVariable(PESSOA, i.getPessoa());
-        context.setVariable(CIDADE, i.getCidade());
+        context.setVariable(CIDADE, i.getCidade().getNome() + " (" + i.getCidade().getEstado().getUf() + ")");
         context.setVariable(INSTITUICAO, i.getInstituicao());
-        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        context.setVariable(BASE_URL, "http://app-aje.fepb.org.br/validacao/" + i.getId());
         String content = templateEngine.process(templateName, context);
         String subject = "APROVAR INSCRIÇÃO - AJE 2019";
         sendEmail(i.getEmailCoordenador(), subject, content, false, true, null);

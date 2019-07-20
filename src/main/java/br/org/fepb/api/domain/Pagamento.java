@@ -1,6 +1,8 @@
 package br.org.fepb.api.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +27,7 @@ public class Pagamento implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "id_inscricao")
+    @JsonIgnore
     private Inscricao inscricao;
 
     public Long getId() {

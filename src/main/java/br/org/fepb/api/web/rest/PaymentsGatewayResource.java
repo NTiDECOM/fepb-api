@@ -85,7 +85,7 @@ public class PaymentsGatewayResource {
 
         Item item = new Item();
         item.setQuantity(1);
-        item.setTitle("Inscrição AJE 2019");
+        item.setTitle("Inscricao AJE 2019");
         item.setUnitPrice(new Float(i.getValor()));
 
         p.appendItem(item);

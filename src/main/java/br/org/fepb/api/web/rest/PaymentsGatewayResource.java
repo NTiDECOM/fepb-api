@@ -69,9 +69,13 @@ public class PaymentsGatewayResource {
         }
 
         if (i.getPagamento() != null) {
-            Preference p = Preference.findById(i.getPagamento().getReferenceId());
-            if (p != null) {
-                return new PreferenceDTO(p);
+            if (i.getPagamento().getReferenceId() == null) {
+                this.pagamentoService.deletar(i.getPagamento().getId());
+            } else {
+                Preference p = Preference.findById(i.getPagamento().getReferenceId());
+                if (p != null) {
+                    return new PreferenceDTO(p);
+                }
             }
         }
 

@@ -32,4 +32,8 @@ public class PagamentoService {
         return null;
     }
 
+    public void deletar(Long id) {
+        this.pagamentoRepository.deleteById(id);
+    }
+
 }

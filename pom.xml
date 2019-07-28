@@ -4,9 +4,9 @@
 
     <groupId>br.org.fepb.api</groupId>
     <artifactId>fepbapi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Fepbapi</name>
+    <name>FepbApi</name>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -612,7 +612,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>fepbapi</repository>
+                    <repository>fepb_api</repository>
                     <contextDirectory>${project.build.directory}</contextDirectory>
                 </configuration>
             </plugin>
